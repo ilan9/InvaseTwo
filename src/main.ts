@@ -1,60 +1,45 @@
-import './style.css'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.ts'
+import Phaser from 'phaser';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+// On définit une scène
+class GameScene extends Phaser.Scene {
+    constructor() {
+        super('GameScene');
+    }
 
-<div class="ticks"></div>
+    preload() {
+        // Charge une image de test depuis les serveurs de Phaser
+        this.load.image('logo', 'https://labs.phaser.io/assets/sprites/phaser3-logo.png');
+    }
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Docummmmmmentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+    create() {
+        // Affiche le logo au milieu
+        const logo = this.add.image(400, 150, 'logo');
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+        // Ajoute un petit message stylé
+        this.add.text(400, 400, "MON JEU EST EN LIGNE !", {
+            fontSize: '40px',
+            color: '#00ff00'
+        }).setOrigin(0.5);
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+        // Petit effet : fait rebondir le logo
+        this.tweens.add({
+            targets: logo,
+            y: 450,
+            duration: 2000,
+            ease: 'Power2',
+            yoyo: true,
+            loop: -1
+        });
+    }
+}
+
+// Configuration du jeu
+const config: Phaser.Types.Core.GameConfig = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    parent: 'app', // S'injecte dans la div id="app" de ton index.html
+    scene: GameScene
+};
+
+new Phaser.Game(config);
