@@ -27,8 +27,8 @@ export default class MyGame extends Phaser.Scene {
 // 2. Configuration du jeu
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 1200,
-    height: 675,
+    width: 978,
+    height: 550,
     parent: 'app',
     scene: MyGame, // On passe la classe ici
     physics: {
