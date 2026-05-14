@@ -33,8 +33,8 @@ export default class MyGame extends Phaser.Scene {
         this.bords = this.physics.add.staticGroup();
         this.bords.create(0, 0, 'bords').setOrigin(0,0).setScale(2,1);
         this.bords.create(0, 525, 'bords').setOrigin(0,0).setScale(2,1);
-        this.bords.create(10, 0, 'bords').setOrigin(0,0).setScale(2,1).setAngle(90);
-        this.bords.create(978-10, 0, 'bords').setOrigin(0,0).setScale(2,1).setAngle(90);
+        this.bords.create(16, 0, 'bords').setOrigin(0,0).setScale(2,1).setAngle(90);
+        this.bords.create(978-8, 0, 'bords').setOrigin(0,0).setScale(2,1).setAngle(90);
         
     }
 
