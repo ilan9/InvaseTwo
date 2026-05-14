@@ -147,11 +147,11 @@ export default class MyGame extends Phaser.Scene {
 
         // Si plus d'étoiles, on en recrée et on ajoute une bombe
         if (this.stars.countActive(true) === 0) {
-            this.stars.children.forEach((child) => {
-                const s = child as Phaser.Physics.Arcade.Image;
-                s.enableBody(true, s.x, 0, true, true);
-                return null;
-            });
+            // On récupère un vrai tableau avec getChildren() puis on utilise forEach
+        this.stars.getChildren().forEach((child) => {
+            const star = child as Phaser.Physics.Arcade.Image;
+            star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        });
 
             const x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
             const bomb = this.bombs.create(x, 16, 'bomb') as Phaser.Physics.Arcade.Image;
