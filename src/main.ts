@@ -32,12 +32,19 @@ export default class MyGame extends Phaser.Scene {
     update() {
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
-            this.player.anims.play('left',true);
         } 
-        else if (this.cursors.right.isDown) {
+        if (this.cursors.right.isDown) {
             this.player.setVelocityX(160);
-            this.player.anims.play('right', true);
-        } 
+        }
+        if (this.cursors.down.isDown) {
+            this.player.setVelocityY(160);
+        }
+        else if (this.cursors.up.isDown) {
+            this.player.setVelocityY(-160);
+        }
+        else{
+            this.player.setVelocityX(0);
+        }
 
     }
 }
