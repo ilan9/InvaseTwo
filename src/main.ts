@@ -2,26 +2,25 @@ import Phaser from 'phaser';
 
 // 1. On définit la scène
 export default class MyGame extends Phaser.Scene {
+
+     private player!: Phaser.Physics.Arcade.Sprite;
+
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
     }
 
     preload() {
-        // Chargement des assets (images, sons)
+        this.load.image('sky', 'assets/sky.png');
+        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     }
 
     create() {
-        this.load.spritesheet("dude","src/asset/dude.png");
-        this.game.scale.startFullscreen();
-        // Création des objets
-        this.add.text(600, 300, "Phaser en TypeScript !", { 
-            fontSize: '40px', 
-            color: '#ffffff' 
-        }).setOrigin(0.5);
+        // Le Joueur
+        this.player = this.physics.add.sprite(100, 450, 'dude');
+        this.player.setCollideWorldBounds(true);
     }
 
     update() {
-        // Logique qui tourne en boucle
     }
 }
 
