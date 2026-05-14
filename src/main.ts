@@ -15,6 +15,9 @@ export default class MyGame extends Phaser.Scene {
     }
 
     create() {
+        // Décor
+        this.add.image(0, 0, 'sky').setOrigin(0,0);
+
         // Le Joueur
         this.player = this.physics.add.sprite(100, 450, 'dude');
         this.player.setCollideWorldBounds(true);
