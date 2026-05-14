@@ -11,6 +11,7 @@ class MyGame extends Phaser.Scene {
     }
 
     create() {
+        this.game.scale.startFullscreen();
         // Création des objets
         this.add.text(600, 300, "Phaser en TypeScript !", { 
             fontSize: '40px', 
@@ -27,13 +28,12 @@ class MyGame extends Phaser.Scene {
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 1200,
-    height: 600,
+    height: 550,
     parent: 'app',
     scene: MyGame, // On passe la classe ici
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { x: 0, y: 300 }, // Optionnel : pour ajouter de la gravité plus tard
             debug: false
         }
     }
