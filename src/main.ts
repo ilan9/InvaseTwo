@@ -5,6 +5,7 @@ export default class MyGame extends Phaser.Scene {
 
     private player!: Phaser.Physics.Arcade.Sprite;
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private bords!: Phaser.Physics.Arcade.StaticGroup;
 
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
@@ -13,6 +14,7 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/sky.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.image('bords', 'assets/platform.png');
     }
 
     create() {
@@ -27,26 +29,23 @@ export default class MyGame extends Phaser.Scene {
         if (this.input.keyboard) {
             this.cursors = this.input.keyboard.createCursorKeys();
         }
+        // Mur exterieur
+        this.bords = this.physics.add.staticGroup();
+        this.bords.create(0, 0, 'bords').setOrigin(0,0);
     }
 
     update() {
-        // 1. On stoppe le joueur par défaut à chaque frame (sur X et Y en même temps)
         this.player.setVelocity(0);
-
-        // 2. Gestion de l'axe Horizontal (Gauche / Droite)
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
         } else if (this.cursors.right.isDown) {
             this.player.setVelocityX(160);
         }
-
-        // 3. Gestion de l'axe Vertical (Haut / Bas)
         if (this.cursors.up.isDown) {
             this.player.setVelocityY(-160);
         } else if (this.cursors.down.isDown) {
             this.player.setVelocityY(160);
         }
-
     }
 }
 
