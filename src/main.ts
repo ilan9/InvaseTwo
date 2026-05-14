@@ -30,22 +30,21 @@ export default class MyGame extends Phaser.Scene {
     }
 
     update() {
-        if (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown){
-            if (this.cursors.left.isDown) {
-                this.player.setVelocityX(-160);
-            } 
-            if (this.cursors.right.isDown) {
-                this.player.setVelocityX(160);
-            }
-            if (this.cursors.down.isDown) {
-                this.player.setVelocityY(160);
-            }
-            if (this.cursors.up.isDown) {
-                this.player.setVelocityY(-160);
-            }
-        }else{
-            this.player.setVelocityX(0);
-            this.player.setVelocityY(0);
+        // 1. On stoppe le joueur par défaut à chaque frame (sur X et Y en même temps)
+        this.player.setVelocity(0);
+
+        // 2. Gestion de l'axe Horizontal (Gauche / Droite)
+        if (this.cursors.left.isDown) {
+            this.player.setVelocityX(-160);
+        } else if (this.cursors.right.isDown) {
+            this.player.setVelocityX(160);
+        }
+
+        // 3. Gestion de l'axe Vertical (Haut / Bas)
+        if (this.cursors.up.isDown) {
+            this.player.setVelocityY(-160);
+        } else if (this.cursors.down.isDown) {
+            this.player.setVelocityY(160);
         }
 
     }
