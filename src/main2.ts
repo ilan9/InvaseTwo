@@ -147,6 +147,7 @@ export default class MyGame extends Phaser.Scene {
 
         // Si plus d'étoiles, on en recrée et on ajoute une bombe
         if (this.stars.countActive(true) === 0) {
+            console.log("plus d'etoileeeeeeeee")
             
             // CORRECTION ICI : On réactive les étoiles et on les replace en haut de l'écran (y = 0)
             this.stars.getChildren().forEach((child) => {
