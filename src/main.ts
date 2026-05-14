@@ -30,19 +30,20 @@ export default class MyGame extends Phaser.Scene {
     }
 
     update() {
-        if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-160);
-        } 
-        if (this.cursors.right.isDown) {
-            this.player.setVelocityX(160);
-        }
-        if (this.cursors.down.isDown) {
-            this.player.setVelocityY(160);
-        }
-        else if (this.cursors.up.isDown) {
-            this.player.setVelocityY(-160);
-        }
-        else{
+        if (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown){
+            if (this.cursors.left.isDown) {
+                this.player.setVelocityX(-160);
+            } 
+            if (this.cursors.right.isDown) {
+                this.player.setVelocityX(160);
+            }
+            if (this.cursors.down.isDown) {
+                this.player.setVelocityY(160);
+            }
+            if (this.cursors.up.isDown) {
+                this.player.setVelocityY(-160);
+            }
+        }else{
             this.player.setVelocityX(0);
         }
 
