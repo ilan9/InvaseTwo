@@ -12,7 +12,7 @@ export default class MyGame extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('sol', 'assets/sol1.png');
+        this.load.image('sol', 'assets/sol2.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
         this.load.image('bords', 'assets/platform.png');
     }
