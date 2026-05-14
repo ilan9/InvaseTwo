@@ -45,6 +45,7 @@ export default class MyGame extends Phaser.Scene {
             }
         }else{
             this.player.setVelocityX(0);
+            this.player.setVelocityY(0);
         }
 
     }
