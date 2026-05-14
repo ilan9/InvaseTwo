@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 // 1. On définit la scène
-class MyGame extends Phaser.Scene {
+export default class MyGame extends Phaser.Scene {
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
     }
@@ -11,6 +11,7 @@ class MyGame extends Phaser.Scene {
     }
 
     create() {
+        this.load.spritesheet("dude","src/asset/dude.png");
         this.game.scale.startFullscreen();
         // Création des objets
         this.add.text(600, 300, "Phaser en TypeScript !", { 
