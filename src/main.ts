@@ -3,7 +3,8 @@ import Phaser from 'phaser';
 // 1. On définit la scène
 export default class MyGame extends Phaser.Scene {
 
-     private player!: Phaser.Physics.Arcade.Sprite;
+    private player!: Phaser.Physics.Arcade.Sprite;
+    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
 
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
@@ -19,11 +20,25 @@ export default class MyGame extends Phaser.Scene {
         this.add.image(0, 0, 'sky').setOrigin(0,0);
 
         // Le Joueur
-        this.player = this.physics.add.sprite(100, 450, 'dude');
+        this.player = this.physics.add.sprite(480, 250, 'dude');
         this.player.setCollideWorldBounds(true);
+
+        // Entrées Clavier
+        if (this.input.keyboard) {
+            this.cursors = this.input.keyboard.createCursorKeys();
+        }
     }
 
     update() {
+        if (this.cursors.left.isDown) {
+            this.player.setVelocityX(-160);
+            this.player.anims.play('left',true);
+        } 
+        else if (this.cursors.right.isDown) {
+            this.player.setVelocityX(160);
+            this.player.anims.play('right', true);
+        } 
+
     }
 }
 
