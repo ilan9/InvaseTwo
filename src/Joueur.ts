@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Arme from './arme/Arme';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Le joueur possède ses propres touches de clavier
@@ -6,8 +7,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keyD!: Phaser.Input.Keyboard.Key;
     private keyZ!: Phaser.Input.Keyboard.Key;
     private keyS!: Phaser.Input.Keyboard.Key;
+    private keySPACE!: Phaser.Input.Keyboard.Key;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, skin:string, num:integer) {
+    private armes: Arme[];
+    private arme_equiped: number
+
+    private direction: string
+
+    constructor(scene: Phaser.Scene, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
         super(scene, x, y, skin);
 
@@ -27,13 +34,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
             this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
             this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+            this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
             }else{
             this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
             this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
             this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
             this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+            this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
             }
         }
+        this.armes=[new Arme("Pisolet",10,0,1,500)]
+        this.arme_equiped = 0
+        this.direction = "down"
     }
 
     /**
@@ -46,14 +58,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Déplacements
         if (this.keyQ.isDown) {
             this.setVelocityX(-160);
+            this.direction = "left";
         } else if (this.keyD.isDown) {
             this.setVelocityX(160);
+            this.direction = "right";
         }
-
         if (this.keyZ.isDown) {
             this.setVelocityY(-160);
+            this.direction = "up";
         } else if (this.keyS.isDown) {
             this.setVelocityY(160);
+            this.direction = "down";
+        }
+
+        // Shoot
+        if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
+            this.armes[this.arme_equiped].tirer(this.x,this.y,this.direction)
         }
     }
 }
