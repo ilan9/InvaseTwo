@@ -32,10 +32,10 @@ export default class MyGame extends Phaser.Scene {
         }
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
-        this.bords.create(978/2, 16, 'bords1');
-        this.bords.create(978/2, 550-16, 'bords1');
-        this.bords.create(16, 550/2, 'bords2');
-        this.bords.create(978-16, 550/2, 'bords2');
+        this.bords.create(978/2, 16, 'bords2');
+        this.bords.create(978/2, 550-16, 'bords2');
+        this.bords.create(16, 550/2, 'bords1');
+        this.bords.create(978-16, 550/2, 'bords1');
     
         // Colision
         this.physics.add.collider(this.player, this.bords);
