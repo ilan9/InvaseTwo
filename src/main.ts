@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Player from './player.ts';
+import Player from './Player';
 
 // 1. On définit la scène
 export default class MyGame extends Phaser.Scene {
