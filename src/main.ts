@@ -5,6 +5,7 @@ import Player from './Joueur.ts';
 export default class MyGame extends Phaser.Scene {
 
     private player!: Player
+    private player2!: Player
     private bords!: Phaser.Physics.Arcade.StaticGroup;
 
     constructor() {
@@ -23,7 +24,8 @@ export default class MyGame extends Phaser.Scene {
         this.add.image(0, 0, 'sol').setOrigin(0,0);
 
         // Le Joueur
-        this.player = new Player(this,15,200,"dude");
+        this.player = new Player(this,150,200,"dude");
+        this.player2 = new Player(this,500,200,"dude");
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
@@ -42,6 +44,7 @@ export default class MyGame extends Phaser.Scene {
 
     update() {
         this.player.update();
+        this.player2.update();
     }
 }
 
