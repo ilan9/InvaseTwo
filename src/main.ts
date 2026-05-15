@@ -14,7 +14,8 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sol', 'assets/sol2.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.image('bords', 'assets/bord.png');
+        this.load.image('bord1', 'assets/bord_horyzontal.png');
+        this.load.image('bord2', 'assets/bord_vertical.png');
     }
 
     create() {
@@ -31,12 +32,10 @@ export default class MyGame extends Phaser.Scene {
         }
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
-        this.bords.create(978/2, 550/2, 'bords').refreshBody();
-        //this.bords.create(0, 550-32, 'bords').setOrigin(0,0).setScale(2,1).refreshBody();
-        //this.bords.create(32, 0, 'bords').setOrigin(0,0).setScale(2,1).setAngle(90).refreshBody();
-        //this.bords.create(978, 0, 'bords').setOrigin(0,0).setScale(2,1).setAngle(90).refreshBody();
-
-        /////////// LES COLLISION NE PEUVENT PAS PIVOTER !!!!!!!!!!!!!!!!
+        this.bords.create(978/2, 16, 'bords1');
+        this.bords.create(978/2, 550-16, 'bords1');
+        this.bords.create(16, 550/2, 'bords2');
+        this.bords.create(978-16, 550/2, 'bords2');
     
         // Colision
         this.physics.add.collider(this.player, this.bords);
