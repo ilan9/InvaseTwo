@@ -14,8 +14,8 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sol', 'assets/sol2.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.image('bord1', 'assets/bord_horyzontal.png');
-        this.load.image('bord2', 'assets/bord_vertical.png');
+        this.load.image('bord_vert', 'assets/bord_horizontal.png');
+        this.load.image('bord_hori', 'assets/bord_vertical.png');
     }
 
     create() {
@@ -32,10 +32,14 @@ export default class MyGame extends Phaser.Scene {
         }
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
-        this.bords.create(978/2, 16, 'bord1');
-        this.bords.create(978/2, 550-16, 'bord1');
-        this.bords.create(16, 550/2, 'bord2');
-        this.bords.create(978-16, 550/2, 'bord2');
+        this.bords.create(0, 0, 'bord_hori').setOrigin(0,0);
+        this.bords.create(978/2+32, 0, 'bord_hori').setOrigin(0,0);
+        this.bords.create(0, 550-32, 'bord_hori').setOrigin(0,0);
+        this.bords.create(978/2+32, 550-32, 'bord_hori').setOrigin(0,0);
+        this.bords.create(0, 0, 'bord_vert');
+        this.bords.create(0, 550/2+32, 'bord_vert');
+        this.bords.create(978-32, 0, 'bord_vert');
+        this.bords.create(978-32, 550/2+32, 'bord_vert');
     
         // Colision
         this.physics.add.collider(this.player, this.bords);
