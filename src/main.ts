@@ -36,10 +36,10 @@ export default class MyGame extends Phaser.Scene {
         this.bords.create(978/2+32, 0, 'bord_hori').setOrigin(0,0);
         this.bords.create(0, 550-32, 'bord_hori').setOrigin(0,0);
         this.bords.create(978/2+32, 550-32, 'bord_hori').setOrigin(0,0);
-        this.bords.create(0, 0, 'bord_vert');
-        this.bords.create(0, 550/2+32, 'bord_vert');
-        this.bords.create(978-32, 0, 'bord_vert');
-        this.bords.create(978-32, 550/2+32, 'bord_vert');
+        this.bords.create(0, 0, 'bord_vert').setOrigin(0,0);
+        this.bords.create(0, 550/2+32, 'bord_vert').setOrigin(0,0);
+        this.bords.create(978-32, 0, 'bord_vert').setOrigin(0,0);
+        this.bords.create(978-32, 550/2+32, 'bord_vert').setOrigin(0,0);
     
         // Colision
         this.physics.add.collider(this.player, this.bords);
