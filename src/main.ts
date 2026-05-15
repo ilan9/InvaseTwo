@@ -24,8 +24,8 @@ export default class MyGame extends Phaser.Scene {
         this.add.image(0, 0, 'sol').setOrigin(0,0);
 
         // Le Joueur
-        this.player = new Player(this,150,200,"dude");
-        this.player2 = new Player(this,500,200,"dude");
+        this.player = new Player(this,150,200,"dude",1);
+        this.player2 = new Player(this,500,200,"dude",2);
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();

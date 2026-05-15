@@ -2,9 +2,12 @@ import Phaser from 'phaser';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Le joueur possède ses propres touches de clavier
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+    private keyQ!: Phaser.Input.Keyboard.Key;
+    private keyD!: Phaser.Input.Keyboard.Key;
+    private keyZ!: Phaser.Input.Keyboard.Key;
+    private keyS!: Phaser.Input.Keyboard.Key;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, skin:string) {
+    constructor(scene: Phaser.Scene, x: number, y: number, skin:string, num:integer) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
         super(scene, x, y, skin);
 
@@ -19,7 +22,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // On initialise le clavier directement DANS le joueur
         if (scene.input.keyboard) {
-            this.cursors = scene.input.keyboard.createCursorKeys();
+            if(num==1){
+            this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+            this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+            this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+            this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+            }else{
+            this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+            this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+            this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+            this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+            }
         }
     }
 
@@ -31,15 +44,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(0);
 
         // Déplacements
-        if (this.cursors.left.isDown) {
+        if (this.keyQ.isDown) {
             this.setVelocityX(-160);
-        } else if (this.cursors.right.isDown) {
+        } else if (this.keyD.isDown) {
             this.setVelocityX(160);
         }
 
-        if (this.cursors.up.isDown) {
+        if (this.keyZ.isDown) {
             this.setVelocityY(-160);
-        } else if (this.cursors.down.isDown) {
+        } else if (this.keyS.isDown) {
             this.setVelocityY(160);
         }
     }
