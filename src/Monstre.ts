@@ -34,17 +34,19 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         this.vie_monstre = 50*level
     }
     update(joueur1:Player, joueur2:Player):void {
+
+        const vitesse = Phaser.Math.Between(50,70)
         
         let distanceJ1 = Phaser.Math.Distance.Between(this.x, this.y, joueur1.x, joueur1.y);
         let distanceJ2 = Phaser.Math.Distance.Between(this.x, this.y, joueur2.x, joueur2.y)
 
         if (joueur1.vie >0 && (distanceJ1 <= distanceJ2 || joueur2.vie <= 0)){
             if (distanceJ1 > 16){
-                this.scene.physics.moveToObject(this, joueur1, 60);
+                this.scene.physics.moveToObject(this, joueur1, vitesse);
             }
         }else if(joueur2.vie >0){
             if (distanceJ2 > 16){
-                this.scene.physics.moveToObject(this, joueur2, 60);
+                this.scene.physics.moveToObject(this, joueur2, vitesse);
             }
         }else{
             this.scene.physics.moveTo(this,978/2,550/2,80)
