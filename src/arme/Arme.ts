@@ -53,7 +53,7 @@ export default class Arme {
         const dure_vie = (this.portee / vitesse_balle) * 1000;
         console.log(dure_vie)
         this.scene.time.delayedCall(dure_vie,()=>{
-            if (balle.active){balle.destroy}
+            if (balle.active){balle.destroy()}
         })
 
     }

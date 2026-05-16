@@ -48,7 +48,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
             }
         }
-        this.armes=[new Arme(scene,Groupe_balle, "Pisolet",10,0,1,500)]
+        this.armes=[new Arme(scene,Groupe_balle, "Pisolet",250,0,1,500)]
         this.arme_equiped = this.armes[0]
         this.name = name
         

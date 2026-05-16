@@ -48,6 +48,7 @@ export default class MyGame extends Phaser.Scene {
         // Mur
         this.physics.add.collider(this.player, this.bords);
         this.physics.add.collider(this.player2, this.bords);
+        this.physics.add.overlap(this.groupeBalles, this.bords,(balle,_)=>{balle.destroy});
 
         // Balle
         this.physics.add.overlap(this.groupeBalles, this.groupeJoueur, (balleObj, joueurObj) => {
