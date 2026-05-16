@@ -8,6 +8,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keyZ!: Phaser.Input.Keyboard.Key;
     private keyS!: Phaser.Input.Keyboard.Key;
     private keySPACE!: Phaser.Input.Keyboard.Key;
+    private keyC!: Phaser.Input.Keyboard.Key;
 
     private armes: Arme[];
     private arme_equiped: Arme;
@@ -19,6 +20,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     public vie:number = 100;
     public name:string = "joueur1";
     private invincible:boolean = false
+    private groupeBalles!: Phaser.Physics.Arcade.Group;
 
     constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group,name:string, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
@@ -29,6 +31,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // ne l'ajoute pas automatiquement à l'écran. Il faut le faire manuellement :
         scene.add.existing(this);         // Pour l'afficher à l'écran
         scene.physics.add.existing(this); // Pour lui donner un corps physique
+        this.groupeBalles = Groupe_balle;
 
         // --- CONFIGURATION DU JOUEUR ---
         this.setCollideWorldBounds(true);
@@ -41,12 +44,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
             this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
             this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+            this.keyC = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
             }else{
             this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
             this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
             this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
             this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
             this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+            this.keyC = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
             }
         }
         this.armes=[new Arme(scene,Groupe_balle, "Pisolet",375,0,1,500)]
@@ -93,6 +98,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                     this.time_tire = this.scene.time.now
                 }
             }
+            if (Phaser.Input.Keyboard.JustDown(this.keyC)){
+                if (this.armes.length > 1){
+                    this.arme_equiped = this.armes[1]
+                }
+            }
         }
     }
     degat(degat: number): void {
@@ -130,6 +140,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.vie = 100
             this.armes = [this.armes[0]]; 
             this.arme_equiped = this.armes[0];
-    })
-}
+        })
+    }
+    public debloquerArme(nom: string,portee:number,rarete:number, cadence: number): void {
+        this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,rarete,1,cadence))
+    }
 }

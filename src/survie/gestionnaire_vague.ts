@@ -19,6 +19,9 @@ export default class GestionnaireVagues {
         this.vagueEnCours = true;
         console.log(`--- Début de la Vague ${this.vagueActuelle} ---`);
 
+        // RADIO : On crie à tout le jeu qu'on change de vague, et on donne le numéro !
+        this.scene.events.emit('changement-vague', this.vagueActuelle);
+
         // On utilise "this.scene.cache" car la fonction JSON appartient à la scène
         const data = this.scene.cache.json.get('donnees_vagues');
         const infosVague = data.vagues[this.vagueActuelle - 1];

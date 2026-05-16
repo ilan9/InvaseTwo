@@ -25,6 +25,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.image('bord_hori', 'assets/bord_horizontal.png');
         this.load.image('bord_vert', 'assets/bord_vertical.png');
         this.load.json('donnees_vagues', 'assets/vague.json');
+        this.load.json('data_arme', 'assets/arme.json');
     }
 
     create() {
@@ -38,6 +39,18 @@ export default class MyGame extends Phaser.Scene {
         this.player2 = new Player(this,this.groupeBalles,"joueur2",500,200,"dude",2);
         this.groupeJoueur.add(this.player);
         this.groupeJoueur.add(this.player2);
+
+        // Les armes
+        this.events.on('changement-vague', (numeroVague: number) => {
+            this.groupeJoueur.getChildren().forEach(element => {
+                let joueur = element as Player
+                let data = this.cache.json.get('data_arme');
+                let arme = data[String(numeroVague)]
+                joueur.debloquerArme(arme.nom,arme.portee,1,arme.cadence)
+            })
+                
+            });
+        
 
         // Les Monstres
         this.groupeMonstre = this.physics.add.group();
