@@ -106,8 +106,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const x = this.x
         const y = this.y
         this.disableBody(true,true)
-        this.scene.time.delayedCall(30000,()=>{
+        this.setVisible(false);
+        this.setActive(false);
+        this.scene.time.delayedCall(3000,()=>{
             this.enableBody(true,x,y,true,true)
+            this.setVisible(true);
+            this.setActive(true);
             this.vie = 100
             this.armes = [this.armes[0]]; 
             this.arme_equiped = this.armes[0];
