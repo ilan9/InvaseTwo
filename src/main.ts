@@ -46,7 +46,8 @@ export default class MyGame extends Phaser.Scene {
                 let joueur = element as Player
                 let data = this.cache.json.get('data_arme');
                 let arme = data[String(numeroVague)]
-                joueur.debloquerArme(arme.nom,arme.portee,1,arme.cadence)
+                if(arme){
+                joueur.debloquerArme(arme.nom,arme.portee,1,arme.cadence)}
             })
                 
             });

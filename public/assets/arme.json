@@ -1,7 +1,5 @@
 {
-    "1":
-        {"nom":"Pistol","portee":375,"rarete":1,"cadence":500}
-    ,
+    
     "2":
         {"nom":"UZI","portee":375,"rarete":1,"cadence":250}
     ,
