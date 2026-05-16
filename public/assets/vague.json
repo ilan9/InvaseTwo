@@ -1,0 +1,24 @@
+{
+  "vagues": [
+    {
+      "numero": 1,
+      "ennemis": [
+        { "type": "zombie", "nombre": 5, "level": 1,"porte":1 }
+      ]
+    },
+    {
+      "numero": 2,
+      "ennemis": [
+        { "type": "zombie", "nombre": 8, "level": 1,"porte":1 },
+        { "type": "zombie", "nombre": 2, "level": 2,"porte":3 }
+      ]
+    },
+    {
+      "numero": 3,
+      "ennemis": [
+        { "type": "zombie", "nombre": 15, "level": 2,"porte":2 },
+        { "type": "zombie", "nombre": 1, "level": 5,"porte":4 }
+      ]
+    }
+  ]
+}

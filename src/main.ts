@@ -1,17 +1,18 @@
 import Phaser from 'phaser';
 import Player from './Joueur';
 import Monstre from './Monstre';
+import GestionnaireVagues from './survie/gestionnaire_vague';
 
 // 1. On définit la scène
 export default class MyGame extends Phaser.Scene {
 
     private player!: Player
     private player2!: Player
-    private monstre1!:Monstre
     private bords!: Phaser.Physics.Arcade.StaticGroup;
     private groupeBalles!: Phaser.Physics.Arcade.Group;
     private groupeJoueur!:Phaser.Physics.Arcade.Group;
     private groupeMonstre!:Phaser.Physics.Arcade.Group;
+    private gestionnaireVagues!: GestionnaireVagues;
 
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
@@ -20,8 +21,10 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sol', 'assets/sol2.png');
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('zombie', 'assets/zombie.png', { frameWidth: 32, frameHeight: 48 });
         this.load.image('bord_hori', 'assets/bord_horizontal.png');
         this.load.image('bord_vert', 'assets/bord_vertical.png');
+        this.load.json('donnees_vagues', 'assets/vague.json');
     }
 
     create() {
@@ -38,9 +41,8 @@ export default class MyGame extends Phaser.Scene {
 
         // Les Monstres
         this.groupeMonstre = this.physics.add.group();
-        // Boucle for
-        this.monstre1 = new Monstre(this,1,"dude",1);
-        this.groupeMonstre.add(this.monstre1)
+        this.gestionnaireVagues = new GestionnaireVagues(this, this.groupeMonstre);
+        this.gestionnaireVagues.lancerNouvelleVague();
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
@@ -95,6 +97,8 @@ export default class MyGame extends Phaser.Scene {
             let zombie = element as Monstre
             if (zombie.active){zombie.update(this.player,this.player2)}
         });
+
+        this.gestionnaireVagues.update();
     }
 }
 
