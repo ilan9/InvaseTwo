@@ -1,11 +1,13 @@
 import Phaser from 'phaser';
 import Player from './Joueur';
+import Monstre from './Monstre';
 
 // 1. On définit la scène
 export default class MyGame extends Phaser.Scene {
 
     private player!: Player
     private player2!: Player
+    private monstre1!:Monstre
     private bords!: Phaser.Physics.Arcade.StaticGroup;
     private groupeBalles!: Phaser.Physics.Arcade.Group;
     private groupeJoueur!:Phaser.Physics.Arcade.Group;
@@ -32,6 +34,9 @@ export default class MyGame extends Phaser.Scene {
         this.player2 = new Player(this,this.groupeBalles,"joueur2",500,200,"dude",2);
         this.groupeJoueur.add(this.player);
         this.groupeJoueur.add(this.player2);
+
+        // Les Monstres
+        this.monstre1 = new Monstre(this,1,"dude",1);
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
@@ -66,6 +71,7 @@ export default class MyGame extends Phaser.Scene {
     update() {
         this.player.update();
         this.player2.update();
+        this.monstre1.update(this.player,this.player2);
     }
 }
 
