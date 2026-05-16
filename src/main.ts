@@ -67,7 +67,7 @@ export default class MyGame extends Phaser.Scene {
             }
         });
         // Monstre
-        this.physics.add.overlap(this.groupeJoueur,this.monstre1,(joueurObj,monstreObj)=>{
+        this.physics.add.overlap(this.monstre1,this.groupeJoueur,(monstreObj,joueurObj)=>{
             const joueur = joueurObj as Player;
             const monstre = monstreObj as Monstre;
             monstre.attaquer(joueur);
