@@ -11,6 +11,7 @@ export default class MyGame extends Phaser.Scene {
     private bords!: Phaser.Physics.Arcade.StaticGroup;
     private groupeBalles!: Phaser.Physics.Arcade.Group;
     private groupeJoueur!:Phaser.Physics.Arcade.Group;
+    private groupeMonstre!:Phaser.Physics.Arcade.Group;
 
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
@@ -36,7 +37,10 @@ export default class MyGame extends Phaser.Scene {
         this.groupeJoueur.add(this.player2);
 
         // Les Monstres
+        this.groupeMonstre = this.physics.add.group();
+        // Boucle for
         this.monstre1 = new Monstre(this,1,"dude",1);
+        this.groupeMonstre.add(this.monstre1)
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
@@ -65,7 +69,7 @@ export default class MyGame extends Phaser.Scene {
             joueurTouche.degat(-1*degatsInfliges);
             balleObj.destroy();
             }})
-        this.physics.add.overlap(this.monstre1,this.groupeBalles ,(monstreObj,balleObj) => {
+        this.physics.add.overlap(this.groupeMonstre,this.groupeBalles ,(monstreObj,balleObj) => {
             const balle_tire = balleObj as Phaser.GameObjects.Rectangle
             const monstre = monstreObj as Monstre; 
             const degatsInfliges = balle_tire.getData('degat');
@@ -74,7 +78,7 @@ export default class MyGame extends Phaser.Scene {
             }
         );
         // Monstre
-        this.physics.add.overlap(this.monstre1,this.groupeJoueur,(monstreObj,joueurObj)=>{
+        this.physics.add.overlap(this.groupeMonstre,this.groupeJoueur,(monstreObj,joueurObj)=>{
             const joueur = joueurObj as Player;
             const monstre = monstreObj as Monstre;
             monstre.attaquer(joueur);
@@ -85,9 +89,12 @@ export default class MyGame extends Phaser.Scene {
     update() {
         this.player.update();
         this.player2.update();
-        if (this.monstre1.active){
-            this.monstre1.update(this.player,this.player2);
-        }
+        
+        // Monstre
+        this.groupeMonstre.getChildren().forEach((element) => {
+            let zombie = element as Monstre
+            if (zombie.active){zombie.update(this.player,this.player2)}
+        });
     }
 }
 
