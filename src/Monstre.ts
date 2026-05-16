@@ -52,7 +52,7 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         this.vie_monstre -= degat
         console.log(`il a pris ${degat} degat, il lui reste ${this.vie_monstre}PV.`)
         if (this.vie_monstre <= 0){
-            this.destroy()
+            this.destroy() // Pas utiliser destroy
         }
     }
 

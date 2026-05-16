@@ -85,7 +85,9 @@ export default class MyGame extends Phaser.Scene {
     update() {
         this.player.update();
         this.player2.update();
-        this.monstre1.update(this.player,this.player2);
+        if (this.monstre1.active){
+            this.monstre1.update(this.player,this.player2);
+        }
     }
 }
 
