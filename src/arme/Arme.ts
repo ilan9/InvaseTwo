@@ -11,13 +11,15 @@ export default class Arme {
     public cadence: integer;
     public level:integer;
 
+    private groupe_balle:Phaser.Physics.Arcade.Group;
+
     private scene: Phaser.Scene;
     // Ajoute d'autres propriétés ici (degats, cadence, etc.)
 
     // --- 2. LE CONSTRUCTEUR (L'usine de fabrication) ---
     // Cette fonction est appelée automatiquement quand tu crées une NOUVELLE arme.
     // C'est ici que tu reçois les valeurs de base pour remplir tes propriétés.
-    constructor(scene:Phaser.Scene, nom: string, portee: number, rarete: integer, level:integer, cadence:integer) {
+    constructor(scene:Phaser.Scene,groupe_balle:Phaser.Physics.Arcade.Group, nom: string, portee: number, rarete: integer, level:integer, cadence:integer) {
         this.scene = scene
         this.nom = nom;
         this.portee = portee;
@@ -27,6 +29,8 @@ export default class Arme {
         this.recul = level*5;
         this.degat = level*10;
         this.level = level
+
+        this.groupe_balle = groupe_balle
     }
 
     // --- 3. LES MÉTHODES (Ce que l'arme peut faire) ---
@@ -38,11 +42,13 @@ export default class Arme {
         const balle = this.scene.add.rectangle(dep_x,dep_y,10,10,0xff0000);;
         this.scene.physics.add.existing(balle);
         const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
+        balle.setData("degat",this.degat)
+        this.groupe_balle.add(balle)
 
         // Déplacer la balle
         const vitesse_balle = 400
         corpsBalle.setVelocity(move_x * vitesse_balle, move_y * vitesse_balle);
-
+        
         // Porté de la balle
         const dure_vie = (this.portee / vitesse_balle) * 1000;
         this.scene.time.delayedCall(dure_vie,()=>{

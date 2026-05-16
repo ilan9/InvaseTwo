@@ -10,13 +10,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keySPACE!: Phaser.Input.Keyboard.Key;
 
     private armes: Arme[];
-    private arme_equiped: Arme
-    private time_tire:number = 0
+    private arme_equiped: Arme;
+    private time_tire:number = 0;
 
     private regard_x:number = 1;
     private regard_y:number = 0;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, skin:string, num:number) {
+    private vie:number = 100;
+
+    constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
         super(scene, x, y, skin);
 
@@ -45,8 +47,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
             }
         }
-        this.armes=[new Arme(scene,"Pisolet",10,0,1,500)]
+        this.armes=[new Arme(scene,Groupe_balle, "Pisolet",10,0,1,500)]
         this.arme_equiped = this.armes[0]
+        
     }
 
     /**
@@ -86,5 +89,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.time_tire = this.scene.time.now
             }
         }
+    }
+    degat(degat:number): void {
+        this.vie +=degat
+        if (this.vie <= 0){this.mort()}
+        console.log(`joueur a pris ${degat} il lui reste ${this.vie}PV`);
+    }
+    mort():void {
+        console.log("joueur est mort")
     }
 }

@@ -7,6 +7,8 @@ export default class MyGame extends Phaser.Scene {
     private player!: Player
     private player2!: Player
     private bords!: Phaser.Physics.Arcade.StaticGroup;
+    private groupeBalles!: Phaser.Physics.Arcade.Group;
+    private groupeJoueur!:Phaser.Physics.Arcade.Group;
 
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
@@ -24,8 +26,11 @@ export default class MyGame extends Phaser.Scene {
         this.add.image(0, 0, 'sol').setOrigin(0,0);
 
         // Le Joueur
-        this.player = new Player(this,150,200,"dude",1);
-        this.player2 = new Player(this,500,200,"dude",2);
+        //this.groupeJoueur = add.group()
+        this.player = new Player(this,this.groupeBalles,150,200,"dude",1);
+        this.player2 = new Player(this,this.groupeBalles,500,200,"dude",2);
+        this.groupeJoueur.add(this.player);
+        this.groupeJoueur.add(this.player2);
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
@@ -39,9 +44,20 @@ export default class MyGame extends Phaser.Scene {
         this.bords.create(978-32, 550/2+32, 'bord_vert').setOrigin(0,0).refreshBody();
     
         // Colision
+        // Mur
         this.physics.add.collider(this.player, this.bords);
         this.physics.add.collider(this.player2, this.bords);
-        this.physics.add.collider(this.player, this.player2);
+
+        // Balle
+        // Toujours dans le create() de MyGame.ts
+
+this.physics.add.overlap(this.groupeBalles, this.groupeJoueur, (balleObj, joueurObj) => {
+    const balle_tire = balleObj as Phaser.GameObjects.Rectangle
+    const joueurTouche = joueurObj as Player; 
+    const degatsInfliges = balle_tire.getData('degat');
+    joueurTouche.degat(degatsInfliges);
+    balleObj.destroy();
+});
     }
 
     update() {

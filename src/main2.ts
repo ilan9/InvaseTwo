@@ -108,6 +108,8 @@ export default class MyGame extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
         this.physics.add.collider(this.player, this.bombs, this.hitBomb, undefined, this);
+
+        this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
     }
 
     /**
