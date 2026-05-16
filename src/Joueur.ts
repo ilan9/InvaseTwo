@@ -17,8 +17,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private regard_y:number = 0;
 
     private vie:number = 100;
+    public name:string = "joueur1";
 
-    constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group, x: number, y: number, skin:string, num:number) {
+    constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group,name:string, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
         super(scene, x, y, skin);
 
@@ -49,6 +50,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         this.armes=[new Arme(scene,Groupe_balle, "Pisolet",10,0,1,500)]
         this.arme_equiped = this.armes[0]
+        this.name = name
         
     }
 
@@ -85,7 +87,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Shoot
         if (this.keySPACE.isDown){
             if (this.scene.time.now - this.time_tire >= this.arme_equiped.cadence){// cadence en ms
-                this.arme_equiped.tirer(this.x,this.y,this.regard_x,this.regard_y)
+                this.arme_equiped.tirer(this.name,this.x,this.y,this.regard_x,this.regard_y)
                 this.time_tire = this.scene.time.now
             }
         }

@@ -28,8 +28,8 @@ export default class MyGame extends Phaser.Scene {
         // Le Joueur
         this.groupeBalles = this.physics.add.group();
         this.groupeJoueur = this.physics.add.group();
-        this.player = new Player(this,this.groupeBalles,150,200,"dude",1);
-        this.player2 = new Player(this,this.groupeBalles,500,200,"dude",2);
+        this.player = new Player(this,this.groupeBalles,"joueur1",150,200,"dude",1);
+        this.player2 = new Player(this,this.groupeBalles,"joueur2",500,200,"dude",2);
         this.groupeJoueur.add(this.player);
         this.groupeJoueur.add(this.player2);
 
@@ -54,8 +54,11 @@ export default class MyGame extends Phaser.Scene {
             const balle_tire = balleObj as Phaser.GameObjects.Rectangle
             const joueurTouche = joueurObj as Player; 
             const degatsInfliges = balle_tire.getData('degat');
-            joueurTouche.degat(degatsInfliges);
+            const joueur_immu = balle_tire.getData("joueur");
+            if (joueurTouche.name != joueur_immu){
+            joueurTouche.degat(-1*degatsInfliges);
             balleObj.destroy();
+            }
 });
     }
 

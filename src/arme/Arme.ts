@@ -35,7 +35,7 @@ export default class Arme {
 
     // --- 3. LES MÉTHODES (Ce que l'arme peut faire) ---
     // Tu crées ici les fonctions propres à l'arme.
-    public tirer(dep_x:number,dep_y:number,move_x:number,move_y:number) {
+    public tirer(joueur_name:string, dep_x:number,dep_y:number,move_x:number,move_y:number) {
         console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
 
         // Création de la balle
@@ -43,6 +43,7 @@ export default class Arme {
         this.scene.physics.add.existing(balle);
         const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
         balle.setData("degat",this.degat)
+        balle.setData("joueur",joueur_name)
         this.groupe_balle.add(balle)
 
         // Déplacer la balle
