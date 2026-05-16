@@ -2,11 +2,11 @@ import Phaser from 'phaser';
 import Player from './Joueur';
 
 export default class Monstre extends Phaser.Physics.Arcade.Sprite {
-    private point_degat:number;
-    //private vie_monstre:number;
+    public point_degat:number;
+    public vie_monstre:number;
 
 
-    constructor(scene: Phaser.Scene,porte:number,skin:string, level:number) {
+    constructor(scene: Phaser.Scene,porte:number,skin:string,level:number) {
         if (porte == 1){
             var x = 978/2
             var y = 0
@@ -25,7 +25,7 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this); 
 
         this.point_degat = 10*level
-        //this.vie_monstre = 50*level
+        this.vie_monstre = 50*level
     }
     update(joueur1:Player, joueur2:Player):void {
         
@@ -33,11 +33,13 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         let distanceJ2 = Phaser.Math.Distance.Between(this.x, this.y, joueur2.x, joueur2.y)
 
         if (joueur1.vie >0 && (distanceJ1 <= distanceJ2 || joueur2.vie <= 0)){
-            this.scene.physics.moveToObject(this, joueur1, 80);
-            if (distanceJ1 < 32){this.attaquer(joueur1)}
+            if (distanceJ1 > 16){
+                this.scene.physics.moveToObject(this, joueur1, 80);
+            }
         }else if(joueur2.vie >0){
-            this.scene.physics.moveToObject(this, joueur2, 80);
-            if (distanceJ1 < 32){this.attaquer(joueur2)}
+            if (distanceJ2 > 16){
+                this.scene.physics.moveToObject(this, joueur2, 80);
+            }
         }else{
             this.scene.physics.moveTo(this,978/2,550/2,80)
         }
