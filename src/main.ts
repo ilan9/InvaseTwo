@@ -85,6 +85,7 @@ export default class MyGame extends Phaser.Scene {
             const monstre = monstreObj as Monstre;
             monstre.attaquer(joueur);
         })
+        this.physics.add.collider(this.groupeMonstre, this.groupeMonstre);
 
     }
 
