@@ -12,8 +12,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private armes: Arme[];
     private arme_equiped: number
 
-    private direction: string
-
     constructor(scene: Phaser.Scene, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
         super(scene, x, y, skin);
@@ -43,9 +41,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
             }
         }
-        this.armes=[new Arme("Pisolet",10,0,1,500)]
+        this.armes=[new Arme(scene,"Pisolet",10,0,1,500)]
         this.arme_equiped = 0
-        this.direction = "down"
     }
 
     /**
@@ -53,27 +50,28 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
      */
     update(): void {
         // On stoppe le joueur par défaut
-        this.setVelocity(0);
+        this.setVelocityX(0);
+        this.setVelocityY(0);
+        let move_x:number = 0
+        let move_y:number = 0
 
         // Déplacements
         if (this.keyQ.isDown) {
-            this.setVelocityX(-160);
-            this.direction = "left";
+            move_x = 1
         } else if (this.keyD.isDown) {
-            this.setVelocityX(160);
-            this.direction = "right";
+            move_x = -1
         }
         if (this.keyZ.isDown) {
-            this.setVelocityY(-160);
-            this.direction = "up";
+            move_y = -1
         } else if (this.keyS.isDown) {
-            this.setVelocityY(160);
-            this.direction = "down";
+            move_y = 1
         }
+        this.setVelocityX(move_x*160);
+        this.setVelocityY(move_y*160);
 
         // Shoot
         if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
-            this.armes[this.arme_equiped].tirer(this.x,this.y,this.direction)
+            this.armes[this.arme_equiped].tirer(this.x,this.y,move_x,move_y)
         }
     }
 }

@@ -10,12 +10,15 @@ export default class Arme {
     public degat: integer;
     public cadence: integer;
     public level:integer;
+
+    private scene: Phaser.Scene;
     // Ajoute d'autres propriétés ici (degats, cadence, etc.)
 
     // --- 2. LE CONSTRUCTEUR (L'usine de fabrication) ---
     // Cette fonction est appelée automatiquement quand tu crées une NOUVELLE arme.
     // C'est ici que tu reçois les valeurs de base pour remplir tes propriétés.
-    constructor(nom: string, portee: number, rarete: integer, level:integer, cadence:integer) {
+    constructor(scene:Phaser.Scene, nom: string, portee: number, rarete: integer, level:integer, cadence:integer) {
+        this.scene = scene
         this.nom = nom;
         this.portee = portee;
         this.rarete = rarete;
@@ -28,8 +31,23 @@ export default class Arme {
 
     // --- 3. LES MÉTHODES (Ce que l'arme peut faire) ---
     // Tu crées ici les fonctions propres à l'arme.
-    public tirer(dep_x:number,dep_y:number,direction:string) {
-        // C'est ici que tu mettras ta logique pour faire apparaître un projectile !
-        console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${direction}.`);
+    public tirer(dep_x:number,dep_y:number,move_x:number,move_y:number) {
+        console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
+
+        // Création de la balle
+        const balle = this.scene.add.rectangle(dep_x,dep_y,10,10,0xff0000);;
+        this.scene.physics.add.existing(balle);
+        const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
+
+        // Déplacer la balle
+        const vitesse_balle = 400
+        corpsBalle.setVelocity(move_x * vitesse_balle, move_y * vitesse_balle);
+
+        // Porté de la balle
+        const dure_vie = (this.portee / vitesse_balle) * 1000;
+        this.scene.time.delayedCall(dure_vie,()=>{
+            if (balle.active){balle.destroy}
+        })
+
     }
 }
