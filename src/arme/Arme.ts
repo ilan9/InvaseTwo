@@ -29,14 +29,13 @@ export default class Arme {
         this.recul = level*5;
         this.degat = level*10;
         this.level = level
-
         this.groupe_balle = groupe_balle
     }
 
     // --- 3. LES MÉTHODES (Ce que l'arme peut faire) ---
     // Tu crées ici les fonctions propres à l'arme.
     public tirer(joueur_name:string, dep_x:number,dep_y:number,move_x:number,move_y:number) {
-        console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
+        //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
 
         // Création de la balle
         const balle = this.scene.add.rectangle(dep_x,dep_y,10,10,0xff0000);;
@@ -52,6 +51,7 @@ export default class Arme {
         
         // Porté de la balle
         const dure_vie = (this.portee / vitesse_balle) * 1000;
+        console.log(dure_vie)
         this.scene.time.delayedCall(dure_vie,()=>{
             if (balle.active){balle.destroy}
         })
