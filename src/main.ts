@@ -64,8 +64,15 @@ export default class MyGame extends Phaser.Scene {
             if (joueurTouche.name != joueur_immu){
             joueurTouche.degat(-1*degatsInfliges);
             balleObj.destroy();
+            }})
+        this.physics.add.overlap(this.monstre1,this.groupeBalles ,(monstreObj,balleObj) => {
+            const balle_tire = balleObj as Phaser.GameObjects.Rectangle
+            const monstre = monstreObj as Monstre; 
+            const degatsInfliges = balle_tire.getData('degat');
+            monstre.degat(degatsInfliges);
+            balleObj.destroy();
             }
-        });
+        );
         // Monstre
         this.physics.add.overlap(this.monstre1,this.groupeJoueur,(monstreObj,joueurObj)=>{
             const joueur = joueurObj as Player;
