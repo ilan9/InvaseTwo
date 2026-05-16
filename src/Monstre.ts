@@ -25,14 +25,14 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         super(scene, x+offset_x, y+offset_y, skin);
         scene.add.existing(this);         // Pour l'afficher à l'écran
         scene.physics.add.existing(this); 
-        this.setScale(0.5)
+        this.setScale(0.1)
         this.setBounce(1)
         this.setMass(10)
         // On limite leur vitesse pour ne pas qu'ils accélèrent à l'infini
-        this.setMaxVelocity(60);
+        this.setMaxVelocity(70);
         
         // On ajoute de la friction pour qu'ils ne glissent pas comme sur de la glace
-        this.setDrag(300);
+        this.setDrag(800);
         
 
         this.point_degat = 10*level
@@ -43,21 +43,30 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         let distanceJ1 = Phaser.Math.Distance.Between(this.x, this.y, joueur1.x, joueur1.y);
         let distanceJ2 = Phaser.Math.Distance.Between(this.x, this.y, joueur2.x, joueur2.y)
 
+        // On vérifie le joueur 1
         if (joueur1.vie > 0 && (distanceJ1 <= distanceJ2 || joueur2.vie <= 0)) {
-            if (distanceJ1 > 16) {
-                this.scene.physics.accelerateToObject(this, joueur1, 200);
+            if (distanceJ1 > 35) {
+                // Il est loin : il accélère vers toi
+                this.scene.physics.accelerateToObject(this, joueur1, 300);
             } else {
-                this.setAcceleration(0, 0); // S'il est assez près, il arrête de pousser
+                // Il est à portée d'attaque : ARRÊT TOTAL IMÉDIAT
+                this.setAcceleration(0, 0);
+                this.setVelocity(0, 0); 
             }
-        } else if (joueur2.vie > 0) {
-            if (distanceJ2 > 16) {
-                this.scene.physics.accelerateToObject(this, joueur2, 200);
+        } 
+        // On vérifie le joueur 2
+        else if (joueur2.vie > 0) {
+            if (distanceJ2 > 35) {
+                this.scene.physics.accelerateToObject(this, joueur2, 300);
             } else {
                 this.setAcceleration(0, 0);
+                this.setVelocity(0, 0);
             }
-        } else {
-            // Si les joueurs sont morts, ils se dirigent vers le centre
-            this.scene.physics.accelerateTo(this, 978 / 2, 550 / 2, 200);
+        } 
+        else {
+            // Plus personne à manger : on s'arrête
+            this.setAcceleration(0, 0);
+            this.setVelocity(0, 0);
         }
     
         
