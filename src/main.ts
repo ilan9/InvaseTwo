@@ -70,7 +70,7 @@ export default class MyGame extends Phaser.Scene {
         this.physics.add.overlap(this.groupeJoueur,this.monstre1,(joueurObj,monstreObj)=>{
             const joueur = joueurObj as Player;
             const monstre = monstreObj as Monstre;
-            joueur.degat(-1 * monstre.point_degat);
+            monstre.attaquer(joueur);
         })
 
     }
