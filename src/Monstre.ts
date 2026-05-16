@@ -20,9 +20,12 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
             var x = 0
             var y = 550/2
         }
-        super(scene, x, y, skin);
+        let offset_x = Phaser.Math.Between(-30, 30);
+        let offset_y = Phaser.Math.Between(-30, 30);
+        super(scene, x+offset_x, y+offset_y, skin);
         scene.add.existing(this);         // Pour l'afficher à l'écran
         scene.physics.add.existing(this); 
+        this.setScale(0.5)
 
         this.point_degat = 10*level
         this.vie_monstre = 50*level
