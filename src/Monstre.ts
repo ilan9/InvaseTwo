@@ -26,6 +26,9 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);         // Pour l'afficher à l'écran
         scene.physics.add.existing(this); 
         this.setScale(0.5)
+        this.setBounce(1)
+        this.setMass(10)
+        
 
         this.point_degat = 10*level
         this.vie_monstre = 50*level
