@@ -48,6 +48,13 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
     attaquer(joueur: Player):void{
         joueur.degat(-1 * this.point_degat);
     }
+    degat(degat:number): void {
+        console.log(`il a pris ${degat} degat, il lui reste ${this.vie_monstre}PV.`)
+        this.vie_monstre -= degat
+        if (this.vie_monstre <= 0){
+            this.destroy()
+        }
+    }
 
 
 
