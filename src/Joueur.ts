@@ -110,7 +110,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.invincible = true;
             this.setTint(0xff0000); // (Bonus) Le joueur devient rouge pour montrer qu'il a mal !
             
-            this.scene.time.delayedCall(1000, () => {
+            this.scene.time.delayedCall(500, () => {
                 this.invincible = false; // Le bouclier se désactive
                 this.clearTint();           // Il reprend sa couleur normale
             });
