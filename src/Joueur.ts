@@ -17,6 +17,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private regard_y:number = 0;
 
     private vie:number = 100;
+    private time_vie:number = 0;
     public name:string = "joueur1";
 
     constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group,name:string, x: number, y: number, skin:string, num:number) {
@@ -48,7 +49,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.keySPACE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
             }
         }
-        this.armes=[new Arme(scene,Groupe_balle, "Pisolet",450,0,1,500)]
+        this.armes=[new Arme(scene,Groupe_balle, "Pisolet",375,0,1,500)]
         this.arme_equiped = this.armes[0]
         this.name = name
         
@@ -59,36 +60,38 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
      */
     update(): void {
         // On stoppe le joueur par défaut
-        this.setVelocityX(0);
-        this.setVelocityY(0);
-        let move_x:number = 0
-        let move_y:number = 0
+        if (this.vie > 0){
+            this.setVelocityX(0);
+            this.setVelocityY(0);
+            let move_x:number = 0
+            let move_y:number = 0
 
-        // Déplacements
-        if (this.keyQ.isDown) {
-            move_x = -1
-        } else if (this.keyD.isDown) {
-            move_x = 1
-        }
-        if (this.keyZ.isDown) {
-            move_y = -1
-        } else if (this.keyS.isDown) {
-            move_y = 1
-        }
-        this.setVelocityX(move_x*160);
-        this.setVelocityY(move_y*160);
+            // Déplacements
+            if (this.keyQ.isDown) {
+                move_x = -1
+            } else if (this.keyD.isDown) {
+                move_x = 1
+            }
+            if (this.keyZ.isDown) {
+                move_y = -1
+            } else if (this.keyS.isDown) {
+                move_y = 1
+            }
+            this.setVelocityX(move_x*160);
+            this.setVelocityY(move_y*160);
 
-        // Direction si immobile
-        if (move_x !== 0 || move_y !== 0) {
-            this.regard_x = move_x;
-            this.regard_y = move_y;
-        }
+            // Direction si immobile
+            if (move_x !== 0 || move_y !== 0) {
+                this.regard_x = move_x;
+                this.regard_y = move_y;
+            }
 
-        // Shoot
-        if (this.keySPACE.isDown){
-            if (this.scene.time.now - this.time_tire >= this.arme_equiped.cadence){// cadence en ms
-                this.arme_equiped.tirer(this.name,this.x,this.y,this.regard_x,this.regard_y)
-                this.time_tire = this.scene.time.now
+            // Shoot
+            if (this.keySPACE.isDown){
+                if (this.scene.time.now - this.time_tire >= this.arme_equiped.cadence){// cadence en ms
+                    this.arme_equiped.tirer(this.name,this.x,this.y,this.regard_x,this.regard_y)
+                    this.time_tire = this.scene.time.now
+                }
             }
         }
     }
@@ -99,5 +102,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     mort():void {
         console.log("joueur est mort")
-    }
+        const x = this.x
+        const y = this.y
+        this.disableBody(true,true)
+        this.scene.time.delayedCall(30000,()=>{
+            this.enableBody(true,x,y,true,true)
+            this.vie = 100
+            this.armes = [this.armes[0]]; 
+            this.arme_equiped = this.armes[0];
+    })
+}
 }
