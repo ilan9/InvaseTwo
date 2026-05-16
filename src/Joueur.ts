@@ -17,7 +17,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private regard_y:number = 0;
 
     private vie:number = 100;
-    private time_vie:number = 0;
     public name:string = "joueur1";
 
     constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group,name:string, x: number, y: number, skin:string, num:number) {
