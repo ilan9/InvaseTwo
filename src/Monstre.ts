@@ -28,6 +28,11 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         this.setScale(0.5)
         this.setBounce(1)
         this.setMass(10)
+        // On limite leur vitesse pour ne pas qu'ils accélèrent à l'infini
+        this.setMaxVelocity(60);
+        
+        // On ajoute de la friction pour qu'ils ne glissent pas comme sur de la glace
+        this.setDrag(300);
         
 
         this.point_degat = 10*level
@@ -38,17 +43,23 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         let distanceJ1 = Phaser.Math.Distance.Between(this.x, this.y, joueur1.x, joueur1.y);
         let distanceJ2 = Phaser.Math.Distance.Between(this.x, this.y, joueur2.x, joueur2.y)
 
-        if (joueur1.vie >0 && (distanceJ1 <= distanceJ2 || joueur2.vie <= 0)){
-            if (distanceJ1 > 16){
-                this.scene.physics.moveToObject(this, joueur1, 60);
+        if (joueur1.vie > 0 && (distanceJ1 <= distanceJ2 || joueur2.vie <= 0)) {
+            if (distanceJ1 > 16) {
+                this.scene.physics.accelerateToObject(this, joueur1, 200);
+            } else {
+                this.setAcceleration(0, 0); // S'il est assez près, il arrête de pousser
             }
-        }else if(joueur2.vie >0){
-            if (distanceJ2 > 16){
-                this.scene.physics.moveToObject(this, joueur2, 60);
+        } else if (joueur2.vie > 0) {
+            if (distanceJ2 > 16) {
+                this.scene.physics.accelerateToObject(this, joueur2, 200);
+            } else {
+                this.setAcceleration(0, 0);
             }
-        }else{
-            this.scene.physics.moveTo(this,978/2,550/2,80)
+        } else {
+            // Si les joueurs sont morts, ils se dirigent vers le centre
+            this.scene.physics.accelerateTo(this, 978 / 2, 550 / 2, 200);
         }
+    
         
     }
     attaquer(joueur: Player):void{
