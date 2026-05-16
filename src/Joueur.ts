@@ -96,10 +96,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
     degat(degat:number): void {
+        if (this.vie > 0 ){
         this.vie +=degat
         if (this.vie <= 0){this.mort()}
         console.log(`joueur a pris ${degat} il lui reste ${this.vie}PV`);
-    }
+    }}
     mort():void {
         console.log("joueur est mort")
         const x = this.x
