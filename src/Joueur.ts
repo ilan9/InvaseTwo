@@ -18,6 +18,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     public vie:number = 100;
     public name:string = "joueur1";
+    private invincible:Boolean = false
 
     constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group,name:string, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
@@ -94,12 +95,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
     }
-    degat(degat:number): void {
-        if (this.vie > 0 ){
-        this.vie +=degat
-        if (this.vie <= 0){this.mort()}
-        console.log(`joueur a pris ${degat} il lui reste ${this.vie}PV`);
-    }}
+    degat(degat: number): void {
+        //  LE BOUCLIER : Si je suis mort OU invincible, je bloque les dégâts !
+        if (this.vie <= 0 || this.invincible === true) {
+            return;
+        }
+        // les dégâts
+        this.vie += degat;
+        console.log(`Joueur a pris ${degat}, il lui reste ${this.vie}PV`);
+
+        if (this.vie <= 0) {
+            this.mort();
+        } else {
+            this.invincible = true;
+            this.setTint(0xff0000); // (Bonus) Le joueur devient rouge pour montrer qu'il a mal !
+            
+            this.scene.time.delayedCall(1000, () => {
+                this.invincible = false; // Le bouclier se désactive
+                this.clearTint();           // Il reprend sa couleur normale
+            });
+        }
+    }
     mort():void {
         console.log("joueur est mort")
         const x = this.x
