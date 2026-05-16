@@ -12,6 +12,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private armes: Arme[];
     private arme_equiped: number
 
+    private regard_x:number = 1;
+    private regard_y:number = 0;
+
     constructor(scene: Phaser.Scene, x: number, y: number, skin:string, num:number) {
         // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
         super(scene, x, y, skin);
@@ -57,9 +60,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Déplacements
         if (this.keyQ.isDown) {
-            move_x = 1
-        } else if (this.keyD.isDown) {
             move_x = -1
+        } else if (this.keyD.isDown) {
+            move_x = 1
         }
         if (this.keyZ.isDown) {
             move_y = -1
@@ -69,9 +72,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(move_x*160);
         this.setVelocityY(move_y*160);
 
+        // Direction si immobile
+        if (move_x !== 0 || move_y !== 0) {
+            this.regard_x = move_x;
+            this.regard_y = move_y;
+        }
+
         // Shoot
         if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
-            this.armes[this.arme_equiped].tirer(this.x,this.y,move_x,move_y)
+            this.armes[this.arme_equiped].tirer(this.x,this.y,this.regard_x,this.regard_y)
         }
     }
 }

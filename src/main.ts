@@ -40,6 +40,7 @@ export default class MyGame extends Phaser.Scene {
     
         // Colision
         this.physics.add.collider(this.player, this.bords);
+        this.physics.add.collider(this.player2, this.bords);
         this.physics.add.collider(this.player, this.player2);
     }
 
