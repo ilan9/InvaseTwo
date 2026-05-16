@@ -10,7 +10,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keySPACE!: Phaser.Input.Keyboard.Key;
 
     private armes: Arme[];
-    private arme_equiped: number
+    private arme_equiped: Arme
+    private time_tire:number = 0
 
     private regard_x:number = 1;
     private regard_y:number = 0;
@@ -45,7 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
         this.armes=[new Arme(scene,"Pisolet",10,0,1,500)]
-        this.arme_equiped = 0
+        this.arme_equiped = this.armes[0]
     }
 
     /**
@@ -79,8 +80,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         // Shoot
-        if (Phaser.Input.Keyboard.JustDown(this.keySPACE)){
-            this.armes[this.arme_equiped].tirer(this.x,this.y,this.regard_x,this.regard_y)
+        if (this.keySPACE.isDown){
+            if (this.scene.time.now - this.time_tire >= this.arme_equiped.cadence){// cadence en ms
+                this.arme_equiped.tirer(this.x,this.y,this.regard_x,this.regard_y)
+                this.time_tire = this.scene.time.now
+            }
         }
     }
 }
