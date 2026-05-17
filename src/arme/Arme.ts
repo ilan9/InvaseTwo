@@ -38,7 +38,8 @@ export default class Arme {
         //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
 
         // Création de la balle
-        const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');;
+        const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
+        balle.setScale(0.1)
         this.scene.physics.add.existing(balle);
         const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
         balle.setData("degat",this.degat)
