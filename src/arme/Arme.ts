@@ -5,11 +5,12 @@ export default class Arme {
     // "public" veut dire que le joueur pourra lire cette info.
     public nom: string;
     public portee: number;
-    public rarete: integer;
+    public stoque: integer;
     public recul: integer;
     public degat: integer;
     public cadence: integer;
     public level:integer;
+    public stoquage:number[];
 
     private groupe_balle:Phaser.Physics.Arcade.Group;
 
@@ -19,12 +20,13 @@ export default class Arme {
     // --- 2. LE CONSTRUCTEUR (L'usine de fabrication) ---
     // Cette fonction est appelée automatiquement quand tu crées une NOUVELLE arme.
     // C'est ici que tu reçois les valeurs de base pour remplir tes propriétés.
-    constructor(scene:Phaser.Scene,groupe_balle:Phaser.Physics.Arcade.Group, nom: string, portee: number, rarete: integer, level:integer, cadence:integer) {
+    constructor(scene:Phaser.Scene,groupe_balle:Phaser.Physics.Arcade.Group, nom: string, portee: number, level:integer, cadence:integer) {
         this.scene = scene
         this.nom = nom;
         this.portee = portee;
-        this.rarete = rarete;
         this.cadence = cadence;
+        this.stoquage = [5,10,25,50,100,200,400,1000]
+        this.stoque = this.stoquage[level];
 
         this.recul = level*5;
         this.degat = level*10;
