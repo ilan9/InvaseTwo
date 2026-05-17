@@ -40,7 +40,7 @@ export default class Arme {
         // Création de la balle
         const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
         balle.setScale(0.05)
-        balle.setRotation(Math.atan2(move_y, move_x)+90);//pour la rotation
+        balle.setRotation(Math.atan2(move_y, move_x)+80);//pour la rotation
         this.scene.physics.add.existing(balle);
         const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
         balle.setData("degat",this.degat)
