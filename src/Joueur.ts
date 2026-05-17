@@ -101,7 +101,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (Phaser.Input.Keyboard.JustDown(this.keyC)){
                 console.log("pas d'arme")
                 if (this.armes.length > 1){
-                    this.arme_equiped = this.armes[1]
+                    let indice_actu =  this.armes.indexOf(this.arme_equiped)
+                    let indice_pro = (indice_actu+1) % this.armes.length
+                    this.arme_equiped = this.armes[indice_pro]
                     console.log(`arme equiper est ${this.arme_equiped.nom}`)
                 }
             }
