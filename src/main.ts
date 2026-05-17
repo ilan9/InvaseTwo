@@ -26,6 +26,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.image('bord_vert', 'assets/bord_vertical.png');
         this.load.json('donnees_vagues', 'assets/vague.json');
         this.load.json('data_arme', 'assets/arme.json');
+        this.load.image('balle_pistol', 'assets/balle_pistol.png');
     }
 
     create() {
@@ -77,7 +78,7 @@ export default class MyGame extends Phaser.Scene {
 
         // Balle
         this.physics.add.overlap(this.groupeBalles, this.groupeJoueur, (balleObj, joueurObj) => {
-            const balle_tire = balleObj as Phaser.GameObjects.Rectangle
+            const balle_tire = balleObj as Phaser.GameObjects.Image
             const joueurTouche = joueurObj as Player; 
             const degatsInfliges = balle_tire.getData('degat');
             const joueur_immu = balle_tire.getData("joueur");
@@ -86,7 +87,7 @@ export default class MyGame extends Phaser.Scene {
             balleObj.destroy();
             }})
         this.physics.add.overlap(this.groupeMonstre,this.groupeBalles ,(monstreObj,balleObj) => {
-            const balle_tire = balleObj as Phaser.GameObjects.Rectangle
+            const balle_tire = balleObj as Phaser.GameObjects.Image
             const monstre = monstreObj as Monstre; 
             const degatsInfliges = balle_tire.getData('degat');
             monstre.degat(degatsInfliges);
