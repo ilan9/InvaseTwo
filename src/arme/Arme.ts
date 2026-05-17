@@ -39,7 +39,7 @@ export default class Arme {
 
         // Création de la balle
         const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
-        balle.setScale(0.025)
+        balle.setScale(0.05)
         this.scene.physics.add.existing(balle);
         const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
         balle.setData("degat",this.degat)
