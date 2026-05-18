@@ -12,6 +12,7 @@ export default class Arme {
     public cadence: integer;
     public level:integer;
     public stoquage:number[];
+    protected cpt_stoque:number;
 
     protected groupe_balle:Phaser.Physics.Arcade.Group;
 
@@ -28,6 +29,7 @@ export default class Arme {
         this.cadence = cadence;
         this.stoquage = [0,5,10,25,50,100,200,400,1000]
         this.stoque = this.stoquage[level];
+        this.cpt_stoque=0
 
         this.recul = level*5;
         this.degat = level*10;
@@ -71,11 +73,12 @@ export default class Arme {
         this.level = level_vague
         this.degat = this.level*10;
         if(this.level<=8){
-            this.stoque = this.stoquage[this.level-1];
+            this.stoque = this.stoquage[this.cpt_stoque];
         }else{
             this.stoque = this.stoquage[7]
         }
         console.log(`${this.nom} level at ${level_vague}`)
         console.log(`${this.nom} a maintenant un stoque de ${this.stoque}`)
+        this.cpt_stoque++
     }
 }
