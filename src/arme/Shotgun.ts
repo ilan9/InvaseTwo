@@ -10,30 +10,40 @@ export default class Shotgun extends Arme {
 
     // L'ÉCRASEMENT (Override) du tir classique
     public tirer(joueur_name: string, dep_x: number, dep_y: number, move_x: number, move_y: number): void {
-        
-        //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
-        for (let i = -1; i!=2; i++) {
-            console.log(i);
+        // 1. On calcule l'angle de base visé par le joueur (en radians)
+        const angleBase = Math.atan2(move_y, move_x);
+        for (let i = -1; i <= 1; i++) {
+            
             // Création de la balle
-            const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
-            balle.setScale(0.05)
-            balle.setRotation(Math.atan2(move_y, move_x) + Math.PI/2+ (Math.PI/4*i));//pour la rotation et on ajoute 1/4
+            const balle = this.scene.add.image(dep_x, dep_y, 'balle_pistol');
+            balle.setScale(0.05);
+
+            //  PI/8 (environ 22 degrés) 
+            const angleTir = angleBase + ((Math.PI / 8) * i);
+            
+            // On tourne l'image
+            balle.setRotation(angleTir + Math.PI / 2);
+            
             this.scene.physics.add.existing(balle);
             const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
-            balle.setData("degat",this.degat)
-            balle.setData("joueur",joueur_name)
-            this.groupe_balle.add(balle)
+            balle.setData("degat", this.degat);
+            balle.setData("joueur", joueur_name);
+            this.groupe_balle.add(balle);
 
-            // Déplacer la balle
-            const vitesse_balle = 400
-            corpsBalle.setVelocity(move_x * vitesse_balle, move_y * vitesse_balle);
+            // 4. LE SECRET PHYSIQUE : On calcule la NOUVELLE direction avec Cosinus et Sinus
+            const nouveauMoveX = Math.cos(angleTir);
+            const nouveauMoveY = Math.sin(angleTir);
+
+            // Déplacer la balle dans sa nouvelle direction
+            const vitesse_balle = 400;
+            corpsBalle.setVelocity(nouveauMoveX * vitesse_balle, nouveauMoveY * vitesse_balle);
             
-            // Porté de la balle
+            // Portée de la balle
             const dure_vie = (this.portee / vitesse_balle) * 1000;
-            console.log(dure_vie)
-            this.scene.time.delayedCall(dure_vie,()=>{
-                if (balle.active){balle.destroy()}
-            })
+            this.scene.time.delayedCall(dure_vie, () => {
+                if (balle.active) { balle.destroy(); }
+            });
         }
     }
+    
 }
