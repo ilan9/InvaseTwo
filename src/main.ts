@@ -47,9 +47,8 @@ export default class MyGame extends Phaser.Scene {
                 let joueur = element as Player
                 let data = this.cache.json.get('data_arme');
                 let arme = data[String(numeroVague)]
-                joueur.armes.forEach(arme=> {
-                    arme.level++
-                    console.log(`${arme} level up`)
+                joueur.armes.forEach(arme_poss=> {
+                    arme_poss.levelup_arme()
                 });
                 if(arme){
                 joueur.debloquerArme(arme.nom,arme.portee,arme.cadence)}

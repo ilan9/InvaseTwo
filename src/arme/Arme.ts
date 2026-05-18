@@ -61,4 +61,9 @@ export default class Arme {
         })
 
     }
+    public levelup_arme():void{
+        this.level ++
+        this.degat = this.level*10;
+        console.log(`${this.nom} level up`)
+    }
 }
