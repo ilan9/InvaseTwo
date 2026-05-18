@@ -12,7 +12,7 @@ export default class Shotgun extends Arme {
     public tirer(joueur_name: string, dep_x: number, dep_y: number, move_x: number, move_y: number): void {
         
         //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
-        for (let i = -1; i==2; i++) {
+        for (let i = -1; i!=2; i++) {
             console.log(i);
             // Création de la balle
             const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
