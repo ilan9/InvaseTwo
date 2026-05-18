@@ -12,9 +12,9 @@ export default class Arme {
     public level:integer;
     public stoquage:number[];
 
-    private groupe_balle:Phaser.Physics.Arcade.Group;
+    protected groupe_balle:Phaser.Physics.Arcade.Group;
 
-    private scene: Phaser.Scene;
+    protected scene: Phaser.Scene;
     // Ajoute d'autres propriétés ici (degats, cadence, etc.)
 
     // --- 2. LE CONSTRUCTEUR (L'usine de fabrication) ---

@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import Arme from './arme/Arme';
+import Shotgun from './arme/Shotgun';
+
 import type { DonneesArme } from './annexes/interface_type';
 import ConsoleJoueur from './console';
 
@@ -165,7 +167,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } )
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
+        if (nom == "Shotgun"){
+           this.armes.push(new Shotgun(this.scene,this.groupeBalles,portee,1,cadence)) 
+        }else{
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
+        }
         if(this.vie>0){
             console.log(`debloquer ${nom}`)
             this.console.ajouterMessage(`Vous avez débloquer ${nom}.`)
