@@ -168,6 +168,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
         if (nom == "Shotgun"){
+            console.log("c'est un shotgun");
            this.armes.push(new Shotgun(this.scene,this.groupeBalles,portee,1,cadence)) 
         }else{
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
