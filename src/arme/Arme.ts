@@ -78,7 +78,7 @@ export default class Arme {
             this.stoque = this.stoquage[7]
         }
         console.log(`${this.nom} level at ${level_vague}`)
-        console.log(`${this.nom} a maintenant un stoque de ${this.stoque}`)
+        console.log(`${this.nom} a maintenant un stoque de ${this.stoque} et cpt_stoque vaut: ${this.cpt_stoque}`)
         this.cpt_stoque++
     }
 }
