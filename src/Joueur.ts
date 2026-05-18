@@ -162,7 +162,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.vie = 100
             this.armes = [this.armes[0]]; 
             this.arme_equiped = this.armes[0];
-        })
+        } )
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))

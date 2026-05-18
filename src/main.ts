@@ -3,7 +3,6 @@ import Player from './Joueur';
 import Monstre from './Monstre';
 import GestionnaireVagues from './survie/gestionnaire_vague';
 import type { DonneesArme } from './annexes/interface_type';
-import type Arme from './arme/Arme';
 
 
 // 1. On définit la scène
