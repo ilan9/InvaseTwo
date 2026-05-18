@@ -39,7 +39,7 @@ export default class Arme {
     // Tu crées ici les fonctions propres à l'arme.
     public tirer(joueur:Player, dep_x:number,dep_y:number,move_x:number,move_y:number) {
         //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
-        if(this.stoque > 0 && this.nom != "Pistolet"){
+        if(this.stoque > 0 ){
         // Création de la balle
         this.stoque--
         const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
@@ -61,8 +61,10 @@ export default class Arme {
         this.scene.time.delayedCall(dure_vie,()=>{
             if (balle.active){balle.destroy()}
         })
-    }else if (this.stoque<=0){
+    }else if (this.stoque<=0 ){
         joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
+    }if(this.nom == "Pistolet"){
+        this.stoque++
     }
     }
     public levelup_arme(level_vague:number):void{
