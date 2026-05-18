@@ -30,7 +30,7 @@ export default class Arme {
         this.cpt_stoque=0
         this.stoquage = [5,10,25,50,100,200,400,1000]
         this.stoque = this.stoquage[this.cpt_stoque];
-        
+        this.cpt_stoque++
 
         this.recul = level*5;
         this.degat = level*10;
