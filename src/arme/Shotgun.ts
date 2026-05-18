@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Arme from './Arme'; 
+import type Player from '../Joueur';
 
 export default class Shotgun extends Arme {
 
@@ -9,7 +10,7 @@ export default class Shotgun extends Arme {
     }
 
     // L'ÉCRASEMENT (Override) du tir classique
-    public tirer(joueur_name: string, dep_x: number, dep_y: number, move_x: number, move_y: number): void {
+    public tirer(joueur:Player, dep_x: number, dep_y: number, move_x: number, move_y: number): void {
         // 1. On calcule l'angle de base visé par le joueur (en radians)
         if(this.stoque > 0){
         const angleBase = Math.atan2(move_y, move_x);
@@ -28,7 +29,7 @@ export default class Shotgun extends Arme {
             this.scene.physics.add.existing(balle);
             const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
             balle.setData("degat", this.degat);
-            balle.setData("joueur", joueur_name);
+            balle.setData("joueur", joueur.name);
             this.groupe_balle.add(balle);
 
             // 4. LE SECRET PHYSIQUE : On calcule la NOUVELLE direction avec Cosinus et Sinus
@@ -45,6 +46,8 @@ export default class Shotgun extends Arme {
                 if (balle.active) { balle.destroy(); }
             });
         }
+        }else{
+            joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
         }
     }
 }

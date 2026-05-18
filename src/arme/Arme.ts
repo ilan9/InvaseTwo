@@ -1,3 +1,4 @@
+import type Player from "../Joueur";
 
 export default class Arme {
     // --- 1. LES PROPRIÉTÉS (Les caractéristiques de l'arme) ---
@@ -36,7 +37,7 @@ export default class Arme {
 
     // --- 3. LES MÉTHODES (Ce que l'arme peut faire) ---
     // Tu crées ici les fonctions propres à l'arme.
-    public tirer(joueur_name:string, dep_x:number,dep_y:number,move_x:number,move_y:number) {
+    public tirer(joueur:Player, dep_x:number,dep_y:number,move_x:number,move_y:number) {
         //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
         if(this.stoque > 0 && this.nom != "Pistolet"){
         // Création de la balle
@@ -46,7 +47,7 @@ export default class Arme {
         this.scene.physics.add.existing(balle);
         const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
         balle.setData("degat",this.degat)
-        balle.setData("joueur",joueur_name)
+        balle.setData("joueur",joueur.name)
         this.groupe_balle.add(balle)
 
         // Déplacer la balle
@@ -59,6 +60,8 @@ export default class Arme {
         this.scene.time.delayedCall(dure_vie,()=>{
             if (balle.active){balle.destroy()}
         })
+    }else{
+        joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
     }
     }
     public levelup_arme(level_vague:number):void{

@@ -108,7 +108,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             // Shoot
             if (this.keySPACE.isDown){
                 if (this.scene.time.now - this.time_tire >= this.arme_equiped.cadence){// cadence en ms
-                    this.arme_equiped.tirer(this.name,this.x,this.y,this.regard_x,this.regard_y)
+                    this.arme_equiped.tirer(this,this.x,this.y,this.regard_x,this.regard_y)
                     this.time_tire = this.scene.time.now
                 }
             }
