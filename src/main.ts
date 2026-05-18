@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import Player from './Joueur';
 import Monstre from './Monstre';
 import GestionnaireVagues from './survie/gestionnaire_vague';
+import type { DonneesArme } from './annexes/interface_type';
+
 
 // 1. On définit la scène
 export default class MyGame extends Phaser.Scene {
@@ -24,8 +26,8 @@ export default class MyGame extends Phaser.Scene {
         this.load.spritesheet('zombie', 'assets/zombie.png', { frameWidth: 64, frameHeight: 96 });
         this.load.image('bord_hori', 'assets/bord_horizontal.png');
         this.load.image('bord_vert', 'assets/bord_vertical.png');
-        this.load.json('donnees_vagues', 'assets/vague.json');
-        this.load.json('data_arme', 'assets/arme.json');
+        this.load.json('donnees_vagues', 'assets/json/vague.json');
+        this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/balle_pistol.png');
     }
 
@@ -45,13 +47,14 @@ export default class MyGame extends Phaser.Scene {
         this.events.on('changement-vague', (numeroVague: number) => {
             this.groupeJoueur.getChildren().forEach(element => {
                 let joueur = element as Player
-                let data = this.cache.json.get('data_arme');
+                let data = this.cache.json.get('data_arme') as Record <string, DonneesArme>;
                 let arme = data[String(numeroVague)]
                 joueur.armes.forEach(arme_poss=> {
                     arme_poss.levelup_arme(numeroVague)
                 });
                 if(arme){
                 joueur.debloquerArme(arme.nom,arme.portee,arme.cadence)}
+                joueur.recup_arme(numeroVague,data)
             })
                 
             });

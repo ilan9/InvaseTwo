@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import Arme from './arme/Arme';
+import type { DonneesArme } from './annexes/interface_type';
+
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Le joueur possède ses propres touches de clavier
@@ -148,5 +150,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
+    }
+    public recup_arme(numero_vague: number, data: Record<string, DonneesArme>): void {
+        Object.keys(data).forEach(vagueStr => {
+            if (Number(vagueStr) <= numero_vague) {
+                
+                let infosNouvelleArme = data[vagueStr];
+                let possedeDeja = this.armes.some(armeExistante => armeExistante.nom === infosNouvelleArme.nom);// .some renvoie true si joueur possede deja cette arme
+                
+                if (!possedeDeja) {// S'il ne l'a pas...
+                    this.debloquerArme(infosNouvelleArme.nom, infosNouvelleArme.portee, infosNouvelleArme.cadence);
+                    console.log(`Arme récupérée : ${infosNouvelleArme.nom}`);
+                }
+            }
+        });
     }
 }
