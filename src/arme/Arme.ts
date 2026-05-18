@@ -69,10 +69,11 @@ export default class Arme {
         this.level = level_vague
         this.degat = this.level*10;
         if(this.level<=7){
-            this.stoque = this.stoquage[this.level];
+            this.stoque = this.stoquage[this.level-1];
         }else{
             this.stoque = this.stoquage[7]
         }
         console.log(`${this.nom} level at ${level_vague}`)
+        console.log(`${this.nom} a maintenant un stoque de ${this.stoque}`)
     }
 }
