@@ -10,7 +10,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keySPACE!: Phaser.Input.Keyboard.Key;
     private keyC!: Phaser.Input.Keyboard.Key;
 
-    private armes: Arme[];
+    public armes: Arme[];
     private arme_equiped: Arme;
     private time_tire:number = 0;
 
@@ -147,10 +147,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         })
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
-        this.armes.forEach(arme=> {
-            arme.level++
-            console.log(`${arme} level up`)
-        });
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
     }
 }
