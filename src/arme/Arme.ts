@@ -63,7 +63,7 @@ export default class Arme {
         this.scene.time.delayedCall(dure_vie,()=>{
             if (balle.active){balle.destroy()}
         })
-    }else if (this.stoque<=0 ){
+    }else if (this.stoque<=0 && this.nom!="Pistolet"){
         joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
     }if(this.nom == "Pistolet"){
         this.stoque++
