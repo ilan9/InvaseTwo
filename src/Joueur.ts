@@ -117,6 +117,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                     let indice_pro = (indice_actu+1) % this.armes.length
                     this.arme_equiped = this.armes[indice_pro]
                     console.log(`arme equiper est ${this.arme_equiped.nom}`)
+                    this.console.ajouterMessage(`Arme equiper : ${this.arme_equiped.nom}`,"#00ff80")
+                }else{
+                    this.console.ajouterMessage("Vous n'avez que le Pistolet","#00ff80") 
                 }
             }
         }
@@ -128,7 +131,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         // les dégâts
         this.vie += degat;
-        this.console.ajouterMessage(`Joueur a pris ${degat}, il lui reste ${this.vie}PV`,"ff0000")
+        this.console.ajouterMessage(`Joueur a pris ${degat}, il lui reste ${this.vie}PV`,"#ff0000")
         console.log(`Joueur a pris ${degat}, il lui reste ${this.vie}PV`);
 
         if (this.vie <= 0) {
@@ -145,7 +148,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     mort():void {
         console.log("joueur est mort")
-        this.console.ajouterMessage("Vous êtes mort vous réapparaitrez dans 30 sec.")
+        this.console.ajouterMessage("Vous êtes mort vous réapparaitrez dans 30 sec.","#ece800")
         const x = this.x
         const y = this.y
         this.disableBody(true,true)
