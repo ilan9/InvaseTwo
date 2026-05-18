@@ -71,7 +71,7 @@ export default class Arme {
     }
     }
     public levelup_arme(level_vague:number):void{
-        this.level = level_vague
+        this.level = this.cpt_stoque
         this.degat = this.level*10;
         if(this.level<=8){
             this.stoque = this.stoquage[this.cpt_stoque];
