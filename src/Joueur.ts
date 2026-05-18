@@ -148,7 +148,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     mort():void {
         console.log("joueur est mort")
-        this.console.ajouterMessage("Vous êtes mort vous réapparaitrez dans 30 sec.","#ece800")
+        this.console.ajouterMessage("Vous êtes mort, vous ","#ece800")
+        this.console.ajouterMessage("réapparaitrez dans 30 sec.","#ece800")
         const x = this.x
         const y = this.y
         this.disableBody(true,true)
@@ -165,8 +166,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
-        console.log(`debloquer ${nom}`)
-        this.console.ajouterMessage(`Vous avez débloquer ${nom}.`)
+        if(this.vie>0){
+            console.log(`debloquer ${nom}`)
+            this.console.ajouterMessage(`Vous avez débloquer ${nom}.`)
+        }
     }
     public recup_arme(numero_vague: number, data: Record<string, DonneesArme>): void {
         Object.keys(data).forEach(vagueStr => {
