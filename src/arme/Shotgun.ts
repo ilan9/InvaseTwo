@@ -13,6 +13,7 @@ export default class Shotgun extends Arme {
     public tirer(joueur:Player, dep_x: number, dep_y: number, move_x: number, move_y: number): void {
         // 1. On calcule l'angle de base visé par le joueur (en radians)
         if(this.stoque > 0){
+            this.stoque--
         const angleBase = Math.atan2(move_y, move_x);
         for (let i = -1; i <= 1; i++) {
             

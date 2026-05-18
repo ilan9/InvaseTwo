@@ -41,6 +41,7 @@ export default class Arme {
         //console.log(`Tire avec ${this.nom} depuis ${dep_x}${dep_y} en direction: ${move_x},${move_y}.`);
         if(this.stoque > 0 && this.nom != "Pistolet"){
         // Création de la balle
+        this.stoque--
         const balle = this.scene.add.image(dep_x,dep_y,'balle_pistol');
         balle.setScale(0.05)
         balle.setRotation(Math.atan2(move_y, move_x) + Math.PI/2);//pour la rotation et on ajoute 1/4
@@ -69,6 +70,8 @@ export default class Arme {
         this.degat = this.level*10;
         if(this.level<=7){
             this.stoque = this.stoquage[this.level];
+        }else{
+            this.stoque = this.stoquage[7]
         }
         console.log(`${this.nom} level at ${level_vague}`)
     }
