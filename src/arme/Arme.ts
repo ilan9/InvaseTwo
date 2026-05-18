@@ -61,9 +61,9 @@ export default class Arme {
         })
 
     }
-    public levelup_arme():void{
-        this.level ++
+    public levelup_arme(level_vague:number):void{
+        this.level = level_vague
         this.degat = this.level*10;
-        console.log(`${this.nom} level up`)
+        console.log(`${this.nom} level at ${level_vague}`)
     }
 }
