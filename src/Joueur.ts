@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Arme from './arme/Arme';
 import type { DonneesArme } from './annexes/interface_type';
+import ConsoleJoueur from './console';
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -15,6 +16,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     public armes: Arme[];
     private arme_equiped: Arme;
     private time_tire:number = 0;
+
+    public console:ConsoleJoueur
 
     private regard_x:number = 1;
     private regard_y:number = 0;
@@ -37,6 +40,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // --- CONFIGURATION DU JOUEUR ---
         this.setCollideWorldBounds(true);
+
+        // Console
+        if (num==1){
+            this.console = new ConsoleJoueur(scene, 10, 500);
+        }else{
+            this.console = new ConsoleJoueur(scene, 750, 500);
+        }
 
         // On initialise le clavier directement DANS le joueur
         if (scene.input.keyboard) {
@@ -118,6 +128,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         // les dégâts
         this.vie += degat;
+        this.console.ajouterMessage(`Joueur a pris ${degat}, il lui reste ${this.vie}PV`,"ff0000")
         console.log(`Joueur a pris ${degat}, il lui reste ${this.vie}PV`);
 
         if (this.vie <= 0) {
@@ -134,6 +145,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     mort():void {
         console.log("joueur est mort")
+        this.console.ajouterMessage("Vous êtes mort vous réapparaitrez dans 30 sec.")
         const x = this.x
         const y = this.y
         this.disableBody(true,true)
@@ -150,11 +162,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     public debloquerArme(nom: string,portee:number, cadence: number): void {
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
+        console.log(`debloquer ${nom}`)
+        this.console.ajouterMessage(`Vous avez débloquer ${nom}.`)
     }
     public recup_arme(numero_vague: number, data: Record<string, DonneesArme>): void {
         Object.keys(data).forEach(vagueStr => {
             if (Number(vagueStr) <= numero_vague) {
-                
+
                 let infosNouvelleArme = data[vagueStr];
                 let possedeDeja = this.armes.some(armeExistante => armeExistante.nom === infosNouvelleArme.nom);// .some renvoie true si joueur possede deja cette arme
                 
