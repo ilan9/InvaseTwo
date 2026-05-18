@@ -26,7 +26,7 @@ export default class Arme {
         this.nom = nom;
         this.portee = portee;
         this.cadence = cadence;
-        this.stoquage = [5,10,25,50,100,200,400,1000]
+        this.stoquage = [0,5,10,25,50,100,200,400,1000]
         this.stoque = this.stoquage[level];
 
         this.recul = level*5;
@@ -70,7 +70,7 @@ export default class Arme {
     public levelup_arme(level_vague:number):void{
         this.level = level_vague
         this.degat = this.level*10;
-        if(this.level<=7){
+        if(this.level<=8){
             this.stoque = this.stoquage[this.level-1];
         }else{
             this.stoque = this.stoquage[7]
