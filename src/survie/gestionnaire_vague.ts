@@ -13,7 +13,7 @@ export default class GestionnaireVagues {
     constructor(scene: Phaser.Scene, groupeEnnemis: Phaser.Physics.Arcade.Group) {
         this.scene = scene;
         this.groupeEnnemis = groupeEnnemis;
-        this.aff_vague = this.scene.add.text(200,100,``,{fontSize: '60px',color: "#ff0000",})
+        this.aff_vague = this.scene.add.text(300,200,``,{fontSize: '160px',fontFamily:'"Nosifer", cursive',color: "#ff0000",})
     }
 
     public lancerNouvelleVague(): void {
@@ -21,7 +21,7 @@ export default class GestionnaireVagues {
         this.vagueEnCours = true;
         console.log(`--- Début de la Vague ${this.vagueActuelle} ---`);
         this.aff_vague = this.scene.add.text(200,100,`Vague: ${this.vagueActuelle}`,{fontSize: '60px',color: "#ff0000",})
-        this.scene.time.delayedCall(4000, () => {
+        this.scene.time.delayedCall(1000, () => {
                 // Un joli effet de fondu (fade out)
                 this.scene.tweens.add({
                     targets: this.aff_vague,
