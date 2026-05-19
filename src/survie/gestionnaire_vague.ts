@@ -7,17 +7,32 @@ export default class GestionnaireVagues {
     
     private vagueActuelle: number = 0;
     private vagueEnCours: boolean = false;
+    private aff_vague:Phaser.GameObjects.Text
 
     // Quand on fabrique le gestionnaire, on lui donne la scène et le groupe
     constructor(scene: Phaser.Scene, groupeEnnemis: Phaser.Physics.Arcade.Group) {
         this.scene = scene;
         this.groupeEnnemis = groupeEnnemis;
+        this.aff_vague = this.scene.add.text(200,100,``,{fontSize: '60px',color: "#ff0000",})
     }
 
     public lancerNouvelleVague(): void {
         this.vagueActuelle++;
         this.vagueEnCours = true;
         console.log(`--- Début de la Vague ${this.vagueActuelle} ---`);
+        this.aff_vague = this.scene.add.text(200,100,`Vague: ${this.vagueActuelle}`,{fontSize: '60px',color: "#ff0000",})
+        this.scene.time.delayedCall(4000, () => {
+                // Un joli effet de fondu (fade out)
+                this.scene.tweens.add({
+                    targets: this.aff_vague,
+                    alpha: 0, // Transparence à 0
+                    duration: 1000, // En 1 seconde
+                    onComplete: () => {
+                        this.aff_vague.destroy();
+                    }
+                });
+            
+        });;
 
         // RADIO : On crie à tout le jeu qu'on change de vague, et on donne le numéro !
         this.scene.events.emit('changement-vague', this.vagueActuelle);
