@@ -18,7 +18,7 @@ export default class GestionnaireVagues {
 
     public lancerNouvelleVague(): void {
         this.vagueActuelle++;
-        this.vagueEnCours = true;
+        
         console.log(`--- Début de la Vague ${this.vagueActuelle} ---`);
         this.aff_vague.x=100
         this.aff_vague.setText(`Vague`)
@@ -63,10 +63,11 @@ export default class GestionnaireVagues {
             return;
         }
         //Cree les monstres
-        this.scene.time.delayedCall(7000,()=>{
+        this.scene.time.delayedCall(7000,()=>{ // fait apparaitre les monstre 7 sec apres le debut de la vague
             infosVague.ennemis.forEach((configEnnemi: any) => {
                 for (let i = 0; i < configEnnemi.nombre; i++) {
                     const nouveauMonstre = new Monstre(this.scene, configEnnemi.porte, configEnnemi.type, configEnnemi.level);
+                    this.vagueEnCours = true;
                     this.groupeEnnemis.add(nouveauMonstre);
                 }
             })
