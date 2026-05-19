@@ -68,7 +68,7 @@ export default class ConsoleJoueur {
     }
     public affiche_stoque(nom:string,stoque:number,total:number): void {
         if(stoque == Infinity){
-            this.stoquage.setText(`${nom}: ∞`)
+            this.stoquage.setText(`${nom}: ♾️`)
         }else{
         this.stoquage.setText(`${nom}: ${stoque}/${total}`)
     }}
