@@ -20,7 +20,7 @@ export default class GestionnaireVagues {
         this.vagueActuelle++;
         this.vagueEnCours = true;
         console.log(`--- Début de la Vague ${this.vagueActuelle} ---`);
-        this.aff_vague = this.scene.add.text(200,100,`Vague: ${this.vagueActuelle}`,{fontSize: '60px',color: "#ff0000",})
+        this.aff_vague.setText(`Vague: ${this.vagueActuelle}`)
         this.scene.time.delayedCall(1000, () => {
                 // Un joli effet de fondu (fade out)
                 this.scene.tweens.add({
@@ -28,7 +28,7 @@ export default class GestionnaireVagues {
                     alpha: 0, // Transparence à 0
                     duration: 1000, // En 1 seconde
                     onComplete: () => {
-                        this.aff_vague.destroy();
+                        this.aff_vague.setText("")
                     }
                 });
             
