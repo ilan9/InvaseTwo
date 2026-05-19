@@ -12,6 +12,7 @@ export default class MyGame extends Phaser.Scene {
     private player2!: Player
     private bords!: Phaser.Physics.Arcade.StaticGroup;
     private groupeBalles!: Phaser.Physics.Arcade.Group;
+    private groupeBarrel!: Phaser.Physics.Arcade.StaticGroup;
     private groupeJoueur!:Phaser.Physics.Arcade.Group;
     private groupeMonstre!:Phaser.Physics.Arcade.Group;
     private gestionnaireVagues!: GestionnaireVagues;
@@ -29,6 +30,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.json('donnees_vagues', 'assets/json/vague.json');
         this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
+        this.load.image('barrel', 'assets/img/barrel.png');
     }
 
     create() {
@@ -42,6 +44,8 @@ export default class MyGame extends Phaser.Scene {
 
         // Le Joueur
         this.groupeBalles = this.physics.add.group();
+        this.groupeBarrel = this.physics.add.staticGroup();
+
         this.groupeJoueur = this.physics.add.group();
         this.player = new Player(this,this.groupeBalles,"joueur1",150,200,"dude",1);
         this.player2 = new Player(this,this.groupeBalles,"joueur2",500,200,"dude",2);
@@ -108,6 +112,22 @@ export default class MyGame extends Phaser.Scene {
         })
         this.physics.add.collider(this.groupeMonstre, this.groupeMonstre);
 
+
+        //      Les armes posable
+        
+        // Barrel
+        this.events.on('create_barrel', (barrel: Phaser.Physics.Arcade.Sprite) => {
+            this.groupeBarrel.add(barrel)
+        })
+        this.physics.add.collider(this.groupeJoueur,this.groupeBarrel)
+        this.physics.add.collider(this.groupeJoueur,this.groupeBarrel)
+        this.physics.add.overlap(this.groupeBalles,this.groupeBarrel,(balleObj,barrelObj)=>{
+            let barrel_explo = barrelObj as Phaser.Physics.Arcade.Sprite
+            this.explosion(barrel_explo);
+            balleObj.destroy()
+        })
+
+
     }
 
     update() {
@@ -122,8 +142,13 @@ export default class MyGame extends Phaser.Scene {
 
         this.gestionnaireVagues.update();
     }
-}
 
+    // Fonction Annexe
+    private explosion(obj:Phaser.Physics.Arcade.Sprite):void{
+        console.log(`${obj} a explosé en ${obj.x}`)
+        obj.destroy()
+    }
+}
 // 2. Configuration du jeu
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
