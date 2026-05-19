@@ -23,7 +23,7 @@ export default class ConsoleJoueur {
             }
         this.x_stoque = this.x + 107
         this.y_stoque = this.y + 25
-        this.stoquage = this.scene.add.text(this.x_stoque,this.y_stoque,"",this.stoque_style)
+        this.stoquage = this.scene.add.text(this.x_stoque,this.y_stoque,"",this.stoque_style).setDepth(10)
     }
 
     public ajouterMessage(message: string, couleur: string = '#ffffff'): void {
