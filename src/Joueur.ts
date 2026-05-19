@@ -154,6 +154,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         console.log("joueur est mort")
         this.console.ajouterMessage("Vous êtes mort, vous ","#ece800")
         this.console.ajouterMessage("réapparaitrez dans 30 sec.","#ece800")
+        this.console.affiche_stoque("Pistolet",Infinity,Infinity)
         const x = this.x
         const y = this.y
         this.disableBody(true,true)
