@@ -42,6 +42,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // --- CONFIGURATION DU JOUEUR ---
         this.setCollideWorldBounds(true);
+        this.setDepth(10)
 
         // Console
         if (num==1){
