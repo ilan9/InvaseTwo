@@ -12,7 +12,7 @@ export default class Arme {
     public cadence: integer;
     public level:integer;
     public stoquage:number[];
-    protected cpt_stoque:number;
+    public cpt_stoque:number;
 
     protected groupe_balle:Phaser.Physics.Arcade.Group;
 
@@ -69,7 +69,7 @@ export default class Arme {
     }if(this.nom == "Pistolet"){
         this.stoque++
     }
-    joueur.console.affiche_stoque(this.stoque,this.stoquage[this.cpt_stoque])
+    joueur.console.affiche_stoque(this.stoque,this.stoquage[this.cpt_stoque-1])
     }
     public levelup_arme(level_vague:number):void{
         this.level = this.cpt_stoque

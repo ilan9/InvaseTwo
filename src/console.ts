@@ -18,7 +18,7 @@ export default class ConsoleJoueur {
             fontSize: '14px',
             fontFamily: 'Arial',
             color: "#ffffff",
-            stroke: '#ffffff',   // Un petit contour noir
+            //stroke: '#ffffff',   // Un petit contour noir
             strokeThickness: 3   // ...pour que ça soit lisible sur n'importe quel décor !
             }
         this.x_stoque = this.x + 107
