@@ -39,7 +39,7 @@ export default class GestionnaireVagues {
                     duration: 1000, // En 1 seconde
                     onComplete: () => {
                         this.aff_vague.setAlpha(1)
-                        this.aff_vague.x=50
+                        this.aff_vague.x=100
                         this.aff_vague.setText("")
                     }
                 });
