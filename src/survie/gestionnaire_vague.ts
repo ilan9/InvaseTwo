@@ -62,12 +62,14 @@ export default class GestionnaireVagues {
             return;
         }
         //Cree les monstres
-        infosVague.ennemis.forEach((configEnnemi: any) => {
-            for (let i = 0; i < configEnnemi.nombre; i++) {
-                const nouveauMonstre = new Monstre(this.scene, configEnnemi.porte, configEnnemi.type, configEnnemi.level);
-                this.groupeEnnemis.add(nouveauMonstre);
-            }
-        });
+        this.scene.time.delayedCall(7000,()=>{
+            infosVague.ennemis.forEach((configEnnemi: any) => {
+                for (let i = 0; i < configEnnemi.nombre; i++) {
+                    const nouveauMonstre = new Monstre(this.scene, configEnnemi.porte, configEnnemi.type, configEnnemi.level);
+                    this.groupeEnnemis.add(nouveauMonstre);
+                }
+            })
+        })
     }
     public update(): void {
         if (this.vagueEnCours && this.groupeEnnemis.countActive() === 0) {
