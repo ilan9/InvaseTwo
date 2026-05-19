@@ -67,7 +67,6 @@ export default class ConsoleJoueur {
         });
     }
     public affiche_stoque(nom:string,stoque:number,total:number): void {
-        this.stoquage.destroy()
-        this.stoquage = this.scene.add.text(this.x_stoque,this.y_stoque,`${nom}: ${stoque}/${total}`,this.stoque_style)
+        this.stoquage.setText(`${nom}: ${stoque}/${total}`)
     }
 }

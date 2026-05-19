@@ -55,6 +55,7 @@ export default class MyGame extends Phaser.Scene {
                 if(arme){
                 joueur.debloquerArme(arme.nom,arme.portee,arme.cadence)}
                 joueur.recup_arme(numeroVague,data)
+                joueur.console.affiche_stoque(joueur.arme_equiped.nom,joueur.arme_equiped.stoque,joueur.arme_equiped.stoquage[joueur.arme_equiped.cpt_stoque-1])
             })
                 
             });

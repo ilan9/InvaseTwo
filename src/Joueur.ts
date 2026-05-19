@@ -16,7 +16,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keyC!: Phaser.Input.Keyboard.Key;
 
     public armes: Arme[];
-    private arme_equiped: Arme;
+    public arme_equiped: Arme;
     private time_tire:number = 0;
 
     public console:ConsoleJoueur
