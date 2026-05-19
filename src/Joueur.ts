@@ -71,7 +71,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.armes=[new Arme(scene,Groupe_balle, "Pistolet",375,1,500)]
         this.arme_equiped = this.armes[0]
         this.name = name
-        this.console.affiche_stoque(this.arme_equiped.stoque,this.arme_equiped.stoquage[this.arme_equiped.cpt_stoque-1])
+        this.console.affiche_stoque(this.name,this.arme_equiped.stoque,this.arme_equiped.stoquage[this.arme_equiped.cpt_stoque-1])
     }
 
     /**
@@ -120,7 +120,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                     this.arme_equiped = this.armes[indice_pro]
                     console.log(`arme equiper est ${this.arme_equiped.nom}`)
                     this.console.ajouterMessage(`Arme equiper : ${this.arme_equiped.nom}`,"#00ff80")
-                    this.console.affiche_stoque(this.arme_equiped.stoque,this.arme_equiped.stoquage[this.arme_equiped.cpt_stoque-1])
+                    this.console.affiche_stoque(this.name,this.arme_equiped.stoque,this.arme_equiped.stoquage[this.arme_equiped.cpt_stoque-1])
                 }else{
                     this.console.ajouterMessage("Vous n'avez que le Pistolet","#00ff80") 
                 }

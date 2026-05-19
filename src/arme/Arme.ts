@@ -31,6 +31,7 @@ export default class Arme {
         this.stoquage = [5,10,25,50,100,200,400,1000]
         this.stoque = this.stoquage[this.cpt_stoque];
         this.cpt_stoque++
+        if (this.nom == "Pistolet"){this.stoque = Infinity}
 
         this.recul = level*5;
         this.degat = level*10;
@@ -66,10 +67,9 @@ export default class Arme {
         })
     }else if (this.stoque<=0 && this.nom!="Pistolet"){
         joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
-    }if(this.nom == "Pistolet"){
-        this.stoque++
+    
     }
-    joueur.console.affiche_stoque(this.stoque,this.stoquage[this.cpt_stoque-1])
+    joueur.console.affiche_stoque(this.nom,this.stoque,this.stoquage[this.cpt_stoque-1])
     }
     public levelup_arme(level_vague:number):void{
         this.level = this.cpt_stoque

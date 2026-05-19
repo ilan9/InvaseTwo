@@ -50,6 +50,6 @@ export default class Shotgun extends Arme {
         }else{
             joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
         }
-        joueur.console.affiche_stoque(this.stoque,this.stoquage[this.cpt_stoque-1])
+        joueur.console.affiche_stoque(this.nom,this.stoque,this.stoquage[this.cpt_stoque-1])
     }
 }
