@@ -13,7 +13,7 @@ export default class GestionnaireVagues {
     constructor(scene: Phaser.Scene, groupeEnnemis: Phaser.Physics.Arcade.Group) {
         this.scene = scene;
         this.groupeEnnemis = groupeEnnemis;
-        this.aff_vague = this.scene.add.text(50,125,``,{fontSize: '170px',fontFamily:'"Nosifer", cursive',color: "#ff0000",}).setDepth(11)
+        this.aff_vague = this.scene.add.text(100,125,``,{fontSize: '170px',fontFamily:'"Nosifer", cursive',color: "#ff0000",}).setDepth(11)
     }
 
     public lancerNouvelleVague(): void {
