@@ -59,6 +59,7 @@ export default class GestionnaireVagues {
         const infosVague = data.vagues[this.vagueActuelle - 1];
 
         if (!infosVague) {
+            this.aff_vague.setText("Félicitation !")
             console.log("Félicitations, vous avez fini le jeu !");
             return;
         }
