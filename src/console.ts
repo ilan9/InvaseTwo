@@ -5,11 +5,25 @@ export default class ConsoleJoueur {
     private x: number;
     private y: number;
     private textes: Phaser.GameObjects.Text[] = [];
+    private stoquage: Phaser.GameObjects.Text
+    private x_stoque:number;
+    private y_stoque:number;
+    private stoque_style: Phaser.Types.GameObjects.Text.TextStyle
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         this.scene = scene;
         this.x = x;
         this.y = y;
+        this.stoque_style = {
+            fontSize: '14px',
+            fontFamily: 'Arial',
+            color: "#ffffff",
+            stroke: '#ffffff',   // Un petit contour noir
+            strokeThickness: 3   // ...pour que ça soit lisible sur n'importe quel décor !
+            }
+        this.x_stoque = this.x + 107
+        this.y_stoque = this.y + 25
+        this.stoquage = this.scene.add.text(this.x_stoque,this.y_stoque,"",this.stoque_style)
     }
 
     public ajouterMessage(message: string, couleur: string = '#ffffff'): void {
@@ -51,5 +65,9 @@ export default class ConsoleJoueur {
                 });
             }
         });
+    }
+    public affiche_stoque(stoque:number,total:number): void {
+        this.stoquage.destroy()
+        this.stoquage = this.scene.add.text(this.x_stoque,this.y_stoque,`Munitions: ${stoque}/${total}`,this.stoque_style)
     }
 }

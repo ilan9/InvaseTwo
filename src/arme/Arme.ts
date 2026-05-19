@@ -69,9 +69,11 @@ export default class Arme {
     }if(this.nom == "Pistolet"){
         this.stoque++
     }
+    joueur.console.affiche_stoque(this.stoque,this.stoquage[this.cpt_stoque])
     }
     public levelup_arme(level_vague:number):void{
         this.level = this.cpt_stoque
+
         this.degat = this.level*10;
         if(this.level<=8){
             this.stoque = this.stoquage[this.cpt_stoque];
