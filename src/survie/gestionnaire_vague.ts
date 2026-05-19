@@ -20,6 +20,7 @@ export default class GestionnaireVagues {
         this.vagueActuelle++;
         this.vagueEnCours = true;
         console.log(`--- Début de la Vague ${this.vagueActuelle} ---`);
+        this.aff_vague.x=100
         this.aff_vague.setText(`Vague`)
         this.scene.time.delayedCall(1000, () => {
                 // Un joli effet de fondu (fade out)
