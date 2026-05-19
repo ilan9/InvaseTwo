@@ -35,6 +35,11 @@ export default class MyGame extends Phaser.Scene {
         // Décor
         this.add.image(0, 0, 'sol').setOrigin(0,0);
 
+        // Les Monstres
+        this.groupeMonstre = this.physics.add.group();
+        this.gestionnaireVagues = new GestionnaireVagues(this, this.groupeMonstre);
+        this.gestionnaireVagues.lancerNouvelleVague();
+
         // Le Joueur
         this.groupeBalles = this.physics.add.group();
         this.groupeJoueur = this.physics.add.group();
@@ -59,12 +64,6 @@ export default class MyGame extends Phaser.Scene {
             })
                 
             });
-        
-
-        // Les Monstres
-        this.groupeMonstre = this.physics.add.group();
-        this.gestionnaireVagues = new GestionnaireVagues(this, this.groupeMonstre);
-        this.gestionnaireVagues.lancerNouvelleVague();
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
