@@ -21,7 +21,7 @@ export default class ConsoleJoueur {
             stroke: '#ffffff',   // Un petit contour noir
             //strokeThickness: 3   // ...pour que ça soit lisible sur n'importe quel décor !
             }
-        this.x_stoque = this.x + 107
+        this.x_stoque = this.x + 70
         this.y_stoque = this.y + 25
         this.stoquage = this.scene.add.text(this.x_stoque,this.y_stoque,"",this.stoque_style).setDepth(10)
     }
@@ -67,6 +67,9 @@ export default class ConsoleJoueur {
         });
     }
     public affiche_stoque(nom:string,stoque:number,total:number): void {
+        if(stoque == Infinity){
+            this.stoquage.setText(`${nom}: ∞`)
+        }else{
         this.stoquage.setText(`${nom}: ${stoque}/${total}`)
-    }
+    }}
 }
