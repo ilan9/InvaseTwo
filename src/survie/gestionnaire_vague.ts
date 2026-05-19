@@ -13,7 +13,7 @@ export default class GestionnaireVagues {
     constructor(scene: Phaser.Scene, groupeEnnemis: Phaser.Physics.Arcade.Group) {
         this.scene = scene;
         this.groupeEnnemis = groupeEnnemis;
-        this.aff_vague = this.scene.add.text(0,125,``,{fontSize: '170px',fontFamily:'"Nosifer", cursive',color: "#ff0000",}).setDepth(11)
+        this.aff_vague = this.scene.add.text(50,125,``,{fontSize: '170px',fontFamily:'"Nosifer", cursive',color: "#ff0000",}).setDepth(11)
     }
 
     public lancerNouvelleVague(): void {
@@ -29,7 +29,7 @@ export default class GestionnaireVagues {
                     duration: 1000, // En 1 seconde
                     onComplete: () => {
                         this.aff_vague.setAlpha(1)
-                        this.aff_vague.x = 400
+                        this.aff_vague.x = 450
                         this.aff_vague.setText(`${this.vagueActuelle}`,)
                         this.scene.time.delayedCall(1000, () => {
                 // Un joli effet de fondu (fade out)
@@ -39,7 +39,7 @@ export default class GestionnaireVagues {
                     duration: 1000, // En 1 seconde
                     onComplete: () => {
                         this.aff_vague.setAlpha(1)
-                        this.aff_vague.x=0
+                        this.aff_vague.x=50
                         this.aff_vague.setText("")
                     }
                 });
