@@ -13,6 +13,7 @@ export default class MyGame extends Phaser.Scene {
     private bords!: Phaser.Physics.Arcade.StaticGroup;
     private groupeBalles!: Phaser.Physics.Arcade.Group;
     private groupeBarrel!: Phaser.Physics.Arcade.StaticGroup;
+    private groupeMine!: Phaser.Physics.Arcade.StaticGroup;
     private groupeJoueur!:Phaser.Physics.Arcade.Group;
     private groupeMonstre!:Phaser.Physics.Arcade.Group;
     private gestionnaireVagues!: GestionnaireVagues;
@@ -31,6 +32,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
+        this.load.image('mine', 'assets/img/mine.png');
         this.load.spritesheet('explosion', 'assets/img/explosion3.png', { frameWidth: 384/8, frameHeight: 48 });
     }
 
@@ -54,6 +56,7 @@ export default class MyGame extends Phaser.Scene {
 
         // Le Joueur
         this.groupeBalles = this.physics.add.group();
+        this.groupeBarrel = this.physics.add.staticGroup();
         this.groupeBarrel = this.physics.add.staticGroup();
 
         this.groupeJoueur = this.physics.add.group();
@@ -137,6 +140,19 @@ export default class MyGame extends Phaser.Scene {
             balleObj.destroy()
         })
 
+         // Mine
+        this.events.on('create_mine', (mine: Phaser.Physics.Arcade.Sprite) => {
+            this.groupeMine.add(mine)
+        })
+        this.physics.add.overlap(this.groupeJoueur,this.groupeMine,(jouObj,mineObj)=>{
+            let mine_explo = mineObj as Phaser.Physics.Arcade.Sprite
+            this.explosion(mine_explo);
+            let joueur = jouObj as Player
+            joueur.console.ajouterMessage("Vous avez marcher")
+            joueur.console.ajouterMessage("sur une mine.")
+        })
+
+
 
     }
 
@@ -161,7 +177,7 @@ export default class MyGame extends Phaser.Scene {
         let boom = this.add.sprite(obj.x, obj.y, 'explosion');
         
         // (Optionnel) Tu peux l'agrandir si l'explosion est trop petite
-        boom.setScale(2); 
+        boom.setScale(2.5); 
         // 2. On lance l'animation !
         boom.play('anim_boom');
 
@@ -184,7 +200,7 @@ export default class MyGame extends Phaser.Scene {
 
         this.groupeBarrel.getChildren().forEach((barrelObj)=>{
             let barrel = barrelObj as Phaser.Physics.Arcade.Sprite
-            if(barrel!== obj && Phaser.Math.Distance.Between( barrel.x, barrel.y,obj.x, obj.y) <= 100){
+            if(barrel!== obj && Phaser.Math.Distance.Between( barrel.x, barrel.y,obj.x, obj.y) <= 50){
                 this.time.delayedCall(500,()=>{
                 this.explosion(barrel)
                 })
