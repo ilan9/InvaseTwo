@@ -185,7 +185,9 @@ export default class MyGame extends Phaser.Scene {
         this.groupeBarrel.getChildren().forEach((barrelObj)=>{
             let barrel = barrelObj as Phaser.Physics.Arcade.Sprite
             if(barrel!== obj && Phaser.Math.Distance.Between( barrel.x, barrel.y,obj.x, obj.y) <= 100){
+                this.time.delayedCall(500,()=>{
                 this.explosion(barrel)
+                })
             }
         })
     }
