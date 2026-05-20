@@ -24,7 +24,7 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sol', 'assets/img/sol2.png');
         this.load.spritesheet('dude', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('zombie', 'assets/img/zombie.png', { frameWidth: 840/9, frameHeight: 859/9 });
+        this.load.spritesheet('zombie', 'assets/img/zombie.png', { frameWidth: 494/9, frameHeight: 489/9 });
         this.load.image('bord_hori', 'assets/img/bord_horizontal.png');
         this.load.image('bord_vert', 'assets/img/bord_vertical.png');
         this.load.json('donnees_vagues', 'assets/json/vague.json');
