@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Arme from './arme/Arme';
 import Shotgun from './arme/Shotgun';
 import Barrel from './arme/Barrel';
+import Mine from './arme/Mine';
 
 import type { DonneesArme } from './annexes/interface_type';
 import ConsoleJoueur from './console';
@@ -177,7 +178,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }else if (nom == "Barrel"){
             console.log("c'est un barrel");
            this.armes.push(new Barrel(this.scene,this.groupeBalles,portee,1,cadence)) 
-        this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
+        }else if (nom == "Mine"){
+            console.log("c'est une mine");
+           this.armes.push(new Mine(this.scene,this.groupeBalles,portee,1,cadence)) 
         }
         else{
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
