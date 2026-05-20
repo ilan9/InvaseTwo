@@ -57,7 +57,7 @@ export default class MyGame extends Phaser.Scene {
         // Le Joueur
         this.groupeBalles = this.physics.add.group();
         this.groupeBarrel = this.physics.add.staticGroup();
-        this.groupeBarrel = this.physics.add.staticGroup();
+        this.groupeMine = this.physics.add.staticGroup();
 
         this.groupeJoueur = this.physics.add.group();
         this.player = new Player(this,this.groupeBalles,"joueur1",150,200,"dude",1);
