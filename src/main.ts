@@ -24,14 +24,14 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sol', 'assets/img/sol2.png');
         this.load.spritesheet('dude', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('zombie', 'assets/img/zombie.png', { frameWidth: 494/9, frameHeight: 489/9 });
+        this.load.spritesheet('zombie', 'assets/img/zombie.png', { frameWidth: 64, frameHeight: 96 });
         this.load.image('bord_hori', 'assets/img/bord_horizontal.png');
         this.load.image('bord_vert', 'assets/img/bord_vertical.png');
         this.load.json('donnees_vagues', 'assets/json/vague.json');
         this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
-        this.load.spritesheet('explosion', 'assets/img/explosion.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('explosion', 'assets/img/explosion.png', { frameWidth: 494/9, frameHeight: 489 });
     }
 
     create() {
@@ -105,6 +105,10 @@ export default class MyGame extends Phaser.Scene {
             if (joueurTouche.name != joueur_immu){
             joueurTouche.degat(-1*degatsInfliges);
             balleObj.destroy();
+
+            // a elever
+            let boom = this.add.sprite(200, 200, 'explosion');
+            boom.play('anim_boom');
             }})
         this.physics.add.overlap(this.groupeMonstre,this.groupeBalles ,(monstreObj,balleObj) => {
             const balle_tire = balleObj as Phaser.GameObjects.Image
