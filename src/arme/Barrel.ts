@@ -17,6 +17,7 @@ export default class Barrel extends Arme {
             let y = dep_y + 30*move_y
 
             const barrel = this.scene.physics.add.image(x,y, 'barrel');
+            barrel.setScale(0.8)
             this.scene.events.emit("create_barrel", barrel);
     }else{
             joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);

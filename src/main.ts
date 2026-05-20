@@ -24,18 +24,28 @@ export default class MyGame extends Phaser.Scene {
     preload() {
         this.load.image('sol', 'assets/img/sol2.png');
         this.load.spritesheet('dude', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('zombie', 'assets/img/zombie.png', { frameWidth: 64, frameHeight: 96 });
+        this.load.spritesheet('zombie', 'assets/img/zombie.png', { frameWidth: 840/9, frameHeight: 859/9 });
         this.load.image('bord_hori', 'assets/img/bord_horizontal.png');
         this.load.image('bord_vert', 'assets/img/bord_vertical.png');
         this.load.json('donnees_vagues', 'assets/json/vague.json');
         this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
+        this.load.spritesheet('explosion', 'assets/img/explosion.png', { frameWidth: 64, frameHeight: 64 });
     }
 
     create() {
         // Décor
         this.add.image(0, 0, 'sol').setOrigin(0,0);
+
+        // Animation
+        this.anims.create({
+            key: 'anim_boom', // Le nom secret de l'animation
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 73 }), // S'il y a 9 images (de 0 à 8)
+            frameRate: 15, // Vitesse de l'animation (15 images par seconde)
+            repeat: 0, // 0 = L'animation ne se joue qu'une seule fois
+            hideOnComplete: true // MAGIQUE : Le sprite devient invisible tout seul à la fin !
+        });
 
         // Les Monstres
         this.groupeMonstre = this.physics.add.group();
@@ -147,6 +157,14 @@ export default class MyGame extends Phaser.Scene {
     private explosion(obj:Phaser.Physics.Arcade.Sprite):void{
         console.log(`${obj} a explosé en ${obj.x}`)
         obj.destroy()
+        // Animation
+        let boom = this.add.sprite(obj.x, obj.y, 'explosion');
+        
+        // (Optionnel) Tu peux l'agrandir si l'explosion est trop petite
+        //boom.setScale(2); 
+
+        // 2. On lance l'animation !
+        boom.play('anim_boom');
     }
 }
 // 2. Configuration du jeu
