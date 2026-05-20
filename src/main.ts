@@ -151,6 +151,10 @@ export default class MyGame extends Phaser.Scene {
             joueur.console.ajouterMessage("Vous avez marcher")
             joueur.console.ajouterMessage("sur une mine.")
         })
+        this.physics.add.overlap(this.groupeMonstre,this.groupeMine,(_,mineObj)=>{
+            let mine_explo = mineObj as Phaser.Physics.Arcade.Sprite
+            this.explosion(mine_explo);
+        })
 
 
 

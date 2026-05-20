@@ -17,7 +17,7 @@ export default class Mine extends Arme {
             let y = dep_y + 30*move_y
 
             const mine = this.scene.physics.add.image(x,y, 'mine');
-            mine.setScale(0.2)
+            mine.setScale(0.1)
             this.scene.time.delayedCall(1000,()=>{
                 this.scene.events.emit("create_mine", mine);
             })
