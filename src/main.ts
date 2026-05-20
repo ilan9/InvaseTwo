@@ -3,6 +3,7 @@ import Player from './Joueur';
 import Monstre from './Monstre';
 import GestionnaireVagues from './survie/gestionnaire_vague';
 import type { DonneesArme } from './annexes/interface_type';
+import type Barrel from './arme/Barrel';
 
 
 // 1. On définit la scène
@@ -105,10 +106,6 @@ export default class MyGame extends Phaser.Scene {
             if (joueurTouche.name != joueur_immu){
             joueurTouche.degat(-1*degatsInfliges);
             balleObj.destroy();
-
-            // a elever
-            let boom = this.add.sprite(200, 200, 'explosion');
-            boom.play('anim_boom');
             }})
         this.physics.add.overlap(this.groupeMonstre,this.groupeBalles ,(monstreObj,balleObj) => {
             const balle_tire = balleObj as Phaser.GameObjects.Image
@@ -165,10 +162,33 @@ export default class MyGame extends Phaser.Scene {
         let boom = this.add.sprite(obj.x, obj.y, 'explosion');
         
         // (Optionnel) Tu peux l'agrandir si l'explosion est trop petite
-        //boom.setScale(2); 
-
+        boom.setScale(2); 
         // 2. On lance l'animation !
         boom.play('anim_boom');
+
+        // On inflige les degats
+        let degat = -100
+
+        this.groupeJoueur.getChildren().forEach((joueurObj)=>{
+            let joueur = joueurObj as Player
+            if(Phaser.Math.Distance.Between( joueur.x, joueur.y,obj.x, obj.y) <= 100){
+                joueur.degat(degat)
+            }
+        })
+
+        this.groupeMonstre.getChildren().forEach((monstreObj)=>{
+            let monstre = monstreObj as Monstre
+            if(Phaser.Math.Distance.Between( monstre.x, monstre.y,obj.x, obj.y) <= 100){
+                monstre.degat(-1*degat)
+            }
+        })
+
+        this.groupeBarrel.getChildren().forEach((barrelObj)=>{
+            let barrel = barrelObj as Phaser.Physics.Arcade.Sprite
+            if(barrel!== obj && Phaser.Math.Distance.Between( barrel.x, barrel.y,obj.x, obj.y) <= 100){
+                this.explosion(barrel)
+            }
+        })
     }
 }
 // 2. Configuration du jeu
