@@ -18,7 +18,9 @@ export default class Mine extends Arme {
 
             const mine = this.scene.physics.add.image(x,y, 'mine');
             mine.setScale(0.8)
-            this.scene.events.emit("create_mine", mine);
+            this.scene.time.delayedCall(1000,()=>{
+                this.scene.events.emit("create_mine", mine);
+            })
     }else{
             joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
         }
