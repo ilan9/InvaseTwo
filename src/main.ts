@@ -31,7 +31,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
-        this.load.spritesheet('explosion', 'assets/img/explosion.png', { frameWidth: 494/9, frameHeight: 489/9 });
+        this.load.spritesheet('explosion', 'assets/img/explosion3.png', { frameWidth: 384/8, frameHeight: 48 });
     }
 
     create() {
@@ -42,7 +42,7 @@ export default class MyGame extends Phaser.Scene {
         this.anims.create({
             key: 'anim_boom', // Le nom secret de l'animation
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 73 }), // S'il y a 9 images (de 0 à 8)
-            frameRate: 60, // Vitesse de l'animation (15 images par seconde)
+            frameRate: 15, // Vitesse de l'animation (15 images par seconde)
             repeat: 0, // 0 = L'animation ne se joue qu'une seule fois
             hideOnComplete: true // MAGIQUE : Le sprite devient invisible tout seul à la fin !
         });
