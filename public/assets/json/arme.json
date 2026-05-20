@@ -1,12 +1,10 @@
 {
-    
+    "2":
+        {"nom":"Barrel","portee":10,"cadence":500},
     "4":
         {"nom":"UZI","portee":375,"cadence":250}
     ,
     "3":
         {"nom":"Shotgun","portee":175,"cadence":500}
-    ,
-    "2":
-        {"nom":"Barrel","portee":10,"cadence":500}
     
 }
