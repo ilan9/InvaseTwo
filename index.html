@@ -16,7 +16,7 @@
 
 <div id="popup-tuto">
     <div class="popup-contenu">
-        <h1 style="color: red; font-family: 'Nosifer', cursive;">SURVIE ZOMBIE</h1>
+        <h1 style="color: red; font-family: 'Nosifer', cursive;">Invase Two</h1>
         <p style="color: white; font-size: 20px;">Lisez bien les contrôles avant de commencer !</p>
         
         <div class="images-grandes">
@@ -35,6 +35,7 @@
     // Quand on clique sur JOUER, on cache le pop-up tout simplement !
     bouton.addEventListener('click', () => {
         popup.style.display = 'none';
+        window.dispatchEvent(new Event('demarrer-jeu'));
     });
 </script>
   </body>
