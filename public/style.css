@@ -1,37 +1,60 @@
-/* --- LE FOND DE PAGE (Optionnel) --- */
+/* --- LE FOND DE PAGE --- */
 body {
     margin: 0;
-    background-color: #1a1a1a; /* Un fond gris sombre fait mieux ressortir le jeu */
-    min-height: 100vh;         /* Prend toute la hauteur de l'écran */
+    background-color: #1a1a1a;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* --- LE CONTENEUR PRINCIPAL --- */
-#app {
-    display: flex;               /* Active Flexbox */
-    flex-direction: row;         /* Aligne les éléments de gauche à droite */
-    align-items: center;         /* Centre le jeu et les images verticalement */
-    justify-content: center;     /* Place le tout bien au centre de ton écran */
-    width: 100%;
-    gap: 40px;                   /* Crée un bel espace entre le jeu et les images */
-}
-
-/* --- LA COLONNE DE DROITE --- */
-.controles {
+/* --- LE FOND SOMBRE DU POP-UP --- */
+#popup-tuto {
+    position: fixed;             /* Reste toujours à l'écran */
+    top: 0; left: 0;
+    width: 100vw; height: 100vh; /* Prend 100% de l'écran */
+    background-color: rgba(0, 0, 0, 0.85); /* Noir transparent à 85% */
     display: flex;
-    flex-direction: column;      /* Force les images à s'empiler de haut en bas */
-    gap: 20px;                   /* Crée un espace entre l'image J1 et J2 */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;               /* S'assure d'être au-dessus du jeu Phaser */
 }
 
-/* --- LE STYLE DES IMAGES --- */
-.controles img {
-    width: 250px;                /* Ajuste cette valeur selon la vraie taille de tes images */
-    border-radius: 12px;         /* Arrondit un peu les angles pour faire plus moderne */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5); /* Ajoute une petite ombre portée */
-    transition: transform 0.2s;  /* Prépare une petite animation de survol */
+/* --- LA BOÎTE CENTRALE --- */
+.popup-contenu {
+    background-color: #222;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 0px 30px rgba(255, 0, 0, 0.4); /* Halo rouge horreur */
 }
 
-/* Petit bonus : l'image grossit légèrement quand on passe la souris dessus ! */
-.controles img:hover {
-    transform: scale(1.05);
+/* --- LES IMAGES EN GRAND --- */
+.images-grandes {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.images-grandes img {
+    width: 400px; /* BEAUCOUP plus grand ! (Ajuste selon ton besoin) */
+    border-radius: 10px;
+}
+
+/* --- LE BOUTON JOUER --- */
+#btn-jouer {
+    padding: 15px 50px;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btn-jouer:hover {
+    background-color: #cc0000;
+    transform: scale(1.1); /* Grossit quand on passe la souris */
 }

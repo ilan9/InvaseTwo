@@ -11,12 +11,31 @@
   </head>
   <body>
     <div id="app">
-      <!-- Vite s'occupera de transformer le .ts en .js pour le navigateur -->
-      <script type="module" src="/src/main.ts"></script>
-      <div class="controles">
-        <img src="assets/html/j1.png" id="J1">
-        <img src="assets/html/j2.png" id="J2">
-      </div>
+    <script type="module" src="/src/main.ts"></script>
+</div>
+
+<div id="popup-tuto">
+    <div class="popup-contenu">
+        <h1 style="color: red; font-family: 'Nosifer', cursive;">SURVIE ZOMBIE</h1>
+        <p style="color: white; font-size: 20px;">Lisez bien les contrôles avant de commencer !</p>
+        
+        <div class="images-grandes">
+            <img src="assets/html/j1.png" alt="Joueur 1">
+            <img src="assets/html/j2.png" alt="Joueur 2">
+        </div>
+
+        <button id="btn-jouer">JOUER !</button>
     </div>
+</div>
+
+<script>
+    const popup = document.getElementById('popup-tuto');
+    const bouton = document.getElementById('btn-jouer');
+
+    // Quand on clique sur JOUER, on cache le pop-up tout simplement !
+    bouton.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+</script>
   </body>
 </html>
