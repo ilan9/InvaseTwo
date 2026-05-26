@@ -19,6 +19,31 @@
         { "type": "zombie", "nombre": 15, "level": 2,"porte":2 },
         { "type": "zombie", "nombre": 1, "level": 5,"porte":4 }
       ]
+    },
+    {
+      "numero": 4,
+      "ennemis": [
+        { "type": "zombie", "nombre": 10, "level": 2,"porte":1 },
+        { "type": "zombie", "nombre": 7, "level": 5,"porte":2 }
+      ]
+    },
+    {
+      "numero": 3,
+      "ennemis": [
+        { "type": "zombie", "nombre": 7, "level": 2,"porte":1 },
+        { "type": "zombie", "nombre": 7, "level": 2,"porte":3 },
+        { "type": "zombie", "nombre": 7, "level": 5,"porte":4 }
+      ]
+    },
+    {
+      "numero": 3,
+      "ennemis": [
+        { "type": "zombie", "nombre": 15, "level": 2,"porte":1 },
+        { "type": "zombie", "nombre": 15, "level": 2,"porte":2 },
+        { "type": "zombie", "nombre": 15, "level": 2,"porte":3 },
+        { "type": "zombie", "nombre": 15, "level": 2,"porte":4 },
+        { "type": "zombie", "nombre": 1, "level": 25,"porte":1 }
+      ]
     }
   ]
 }
