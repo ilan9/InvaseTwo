@@ -208,7 +208,7 @@ export default class MyGame extends Phaser.Scene {
             this.physics.add.collider(this.groupeBarrel,this.groupeGrenade)
             this.physics.add.collider(this.groupeWall,this.groupeGrenade)
         })
-        this.events.on('create_grenade', (grenade: Phaser.Physics.Arcade.Sprite) => {
+        this.events.on('boum_grenade', (grenade: Phaser.Physics.Arcade.Sprite) => {
             this.explosion(grenade)
         })
 
