@@ -281,6 +281,8 @@ const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 978,
     height: 550,
+    pixelArt: true,      // On garde le côté net
+    roundPixels: true,
     parent: 'app',
     scene: MyGame, // On passe la classe ici
     physics: {
