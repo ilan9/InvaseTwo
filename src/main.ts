@@ -12,6 +12,7 @@ export default class MyGame extends Phaser.Scene {
     private player2!: Player
     private bords!: Phaser.Physics.Arcade.StaticGroup;
     private groupeBalles!: Phaser.Physics.Arcade.Group;
+    private groupeRoquettes!: Phaser.Physics.Arcade.Group;
     private groupeBarrel!: Phaser.Physics.Arcade.StaticGroup;
     private groupeWall!: Phaser.Physics.Arcade.StaticGroup;
     private groupeMine!: Phaser.Physics.Arcade.StaticGroup;
@@ -37,6 +38,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
         this.load.image('grenade', 'assets/img/bomb.png');
+        this.load.image('roquette', 'assets/img/bomb.png');
         this.load.image('wall', 'assets/img/wall.png');
         this.load.image('mine', 'assets/img/mine.png');
         this.load.spritesheet('explosion', 'assets/img/explosion3.png', { frameWidth: 384/8, frameHeight: 48 });
@@ -97,6 +99,7 @@ export default class MyGame extends Phaser.Scene {
 
         // Le Joueur
         this.groupeBalles = this.physics.add.group();
+        this.groupeRoquettes = this.physics.add.group();
         this.groupeBarrel = this.physics.add.staticGroup();
         this.groupeWall = this.physics.add.staticGroup();
         this.groupeMine = this.physics.add.staticGroup();
@@ -141,6 +144,9 @@ export default class MyGame extends Phaser.Scene {
         this.physics.add.collider(this.groupeJoueur, this.bords);
         this.physics.add.collider(this.groupeMonstre, this.bords);
         this.physics.add.overlap(this.groupeBalles, this.bords,(balle,_)=>{balle.destroy()});
+        this.physics.add.overlap(this.groupeRoquettes, this.bords,(balleObj,_)=>{
+            let balle = balleObj as Phaser.Physics.Arcade.Sprite
+            this.explosion(balle)});
 
         // Balle
         this.physics.add.overlap(this.groupeBalles, this.groupeJoueur, (balleObj, joueurObj) => {
@@ -160,6 +166,23 @@ export default class MyGame extends Phaser.Scene {
             balleObj.destroy();
             }
         );
+        // Roquette
+        this.events.on('create_roquette', (roquette: Phaser.Physics.Arcade.Sprite) => {
+            this.groupeRoquettes.add(roquette)
+        })
+        this.physics.add.overlap(this.groupeRoquettes, this.groupeJoueur, (balleObj, joueurObj) => {
+            const balle_tire = balleObj as Phaser.Physics.Arcade.Sprite
+            const joueurTouche = joueurObj as Player; 
+            const joueur_immu = balle_tire.getData("joueur");
+            if (joueurTouche.name != joueur_immu){
+            this.explosion(balle_tire)
+            }})
+        this.physics.add.overlap(this.groupeMonstre,this.groupeRoquettes ,(_,balleObj) => {
+            const balle_tire = balleObj as Phaser.Physics.Arcade.Sprite
+            this.explosion(balle_tire)
+            }
+        );
+
         // Monstre
         this.physics.add.overlap(this.groupeMonstre,this.groupeJoueur,(monstreObj,joueurObj)=>{
             const joueur = joueurObj as Player;

@@ -24,7 +24,7 @@ export default class Grenade extends Arme {
             corpsGrenade.setDrag(350);
             
             // Rebond
-            corpsGrenade.setBounce(0.5); 
+            corpsGrenade.setBounce(0.7); 
             corpsGrenade.setAngularVelocity(150);
 
             
