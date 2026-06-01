@@ -77,7 +77,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.name = name
         this.console.affiche_stoque(this.arme_equiped.nom,Infinity,Infinity)
     }
-
+    
     /**
      * Cette méthode remplace tout le code de déplacement que tu avais dans MyGame
      */
@@ -92,6 +92,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             // Déplacements
             if (this.keyQ.isDown) {
                 move_x = -1
+                this.anims.play("left",true)
             } else if (this.keyD.isDown) {
                 move_x = 1
             }

@@ -25,7 +25,7 @@ export default class MyGame extends Phaser.Scene {
 
     preload() {
         this.load.image('sol', 'assets/img/sol2.png');
-        this.load.spritesheet('dude', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('dude', 'assets/img/characters/character_1_frame16x20.png', { frameWidth: 16, frameHeight: 20 });
         this.load.spritesheet('dude2', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 });
         this.load.spritesheet('zombie2', 'assets/img/zombie1.png',  { frameWidth: 32*4, frameHeight: 32*8,margin:1 });
         this.load.spritesheet('zombie', 'assets/img/zombie.png',  { frameWidth: 64, frameHeight: 96 });
@@ -51,6 +51,31 @@ export default class MyGame extends Phaser.Scene {
             frameRate: 15, // Vitesse de l'animation (15 images par seconde)
             repeat: 0, // 0 = L'animation ne se joue qu'une seule fois
             hideOnComplete: true // MAGIQUE : Le sprite devient invisible tout seul à la fin !
+        });
+        this.anims.create({
+            key: 'down',
+            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 2 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 5 }),
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'up',
+            frames: this.anims.generateFrameNumbers('dude', { start: 9, end: 11 }),
+            frameRate: 10,
+            repeat: -1
         });
 
         // Les Monstres
@@ -264,7 +289,7 @@ const config: Phaser.Types.Core.GameConfig = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: false
         }
     }
 };
