@@ -15,7 +15,7 @@ export default class Lance_roquette extends Arme {
             if(this.stoque > 0 ){
             // Création de la balle
             this.stoque--
-            const balle = this.scene.add.sprite(dep_x,dep_y,'roquette');
+            const balle = this.scene.physics.add.sprite(dep_x,dep_y,'roquette');
             balle.setScale(0.05)
             balle.setRotation(Math.atan2(move_y, move_x) + Math.PI/2);//pour la rotation et on ajoute 1/4
             const corpsBalle = balle.body as Phaser.Physics.Arcade.Body;
