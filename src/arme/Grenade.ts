@@ -16,9 +16,10 @@ export default class Grenade extends Arme {
             let x = dep_x + 30*move_x
             let y = dep_y + 30*move_y
 
-            const Grenade = this.scene.physics.add.image(x,y, 'Grenade');
-            Grenade.setScale(0.05)
+            const Grenade = this.scene.physics.add.image(x,y, 'grenade');
+            Grenade.setScale(1)
             const corpsGrenade = Grenade.body as Phaser.Physics.Arcade.Body;
+            this.scene.events.emit("create_grenade", Grenade);
             corpsGrenade.setVelocity(move_x * 400, move_y * 400); 
             corpsGrenade.setDrag(150);
             
@@ -26,12 +27,12 @@ export default class Grenade extends Arme {
             corpsGrenade.setBounce(0.5); 
             corpsGrenade.setAngularVelocity(300);
 
-            this.scene.events.emit("create_grenade", Grenade);
+            
 
             this.scene.time.delayedCall(4000, () => {
                 if (Grenade.active) {
                     corpsGrenade.setAngularVelocity(0); 
-                    this.scene.events.emit("boom_grenade", Grenade);
+                    this.scene.events.emit("boum_grenade", Grenade);
                 }
             });
 
