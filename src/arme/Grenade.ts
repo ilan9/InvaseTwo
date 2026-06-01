@@ -21,7 +21,7 @@ export default class Grenade extends Arme {
             const corpsGrenade = Grenade.body as Phaser.Physics.Arcade.Body;
             this.scene.events.emit("create_grenade", Grenade);
             corpsGrenade.setVelocity(move_x * 400, move_y * 400); 
-            corpsGrenade.setDrag(150);
+            corpsGrenade.setDrag(350);
             
             // Rebond
             corpsGrenade.setBounce(0.5); 
