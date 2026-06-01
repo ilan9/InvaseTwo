@@ -25,7 +25,7 @@ export default class MyGame extends Phaser.Scene {
 
     preload() {
         this.load.image('sol', 'assets/img/sol2.png');
-        this.load.spritesheet('dude', 'assets/img/characters/character_1_frame16x20.png', { frameWidth: 16, frameHeight: 20, spacing:1});
+        this.load.spritesheet('dude', 'assets/img/characters/character_1_frame16x20.png', { frameWidth: 16, frameHeight: 20});
         this.load.spritesheet('dude2', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 }); 
         this.load.spritesheet('zombie2', 'assets/img/zombie1.png',  { frameWidth: 32*4, frameHeight: 32*8,margin:1 });
         this.load.spritesheet('zombie', 'assets/img/zombie.png',  { frameWidth: 64, frameHeight: 96 });
