@@ -15,10 +15,10 @@ export default class Wall extends Arme {
             let x = dep_x + 30*move_x
             let y = dep_y + 30*move_y
 
-            const Wall = this.scene.physics.add.image(x,y, 'Wall');
+            const Wall = this.scene.physics.add.image(x,y, 'wall');
             Wall.setScale(0.8)
             Wall.setData("vie",10)
-            this.scene.events.emit("create_Wall", Wall);
+            this.scene.events.emit("create_wall", Wall);
     }else{
             joueur.console.ajouterMessage(`Plus de balle dans ${this.nom}`);
         }
