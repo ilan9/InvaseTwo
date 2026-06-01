@@ -167,6 +167,7 @@ export default class MyGame extends Phaser.Scene {
             if (vie_wall <= 0){
                 wall.destroy()
             }
+            ballObj.destroy()
         })
 
          // Mine
