@@ -56,26 +56,23 @@ export default class MyGame extends Phaser.Scene {
             key: 'down',
             frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 2 }),
             frameRate: 10,
-            repeat: -1
         });
 
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 5 }),
-            frameRate: 20
+            frameRate: 10
         });
 
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 8 }),
             frameRate: 10,
-            repeat: -1
         });
         this.anims.create({
             key: 'up',
             frames: this.anims.generateFrameNumbers('dude', { start: 9, end: 11 }),
             frameRate: 10,
-            repeat: -1
         });
 
         // Les Monstres
