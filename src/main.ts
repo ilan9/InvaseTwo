@@ -38,7 +38,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
         this.load.image('grenade', 'assets/img/bomb.png');
-        this.load.image('roquette', 'assets/img/bomb.png');
+        this.load.image('roquette', 'assets/img/roquette.png');
         this.load.image('wall', 'assets/img/wall.png');
         this.load.image('mine', 'assets/img/mine.png');
         this.load.spritesheet('explosion', 'assets/img/explosion3.png', { frameWidth: 384/8, frameHeight: 48 });
