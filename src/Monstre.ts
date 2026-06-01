@@ -49,7 +49,7 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
                 this.scene.physics.moveToObject(this, joueur2, vitesse);
             }
         }else{
-            this.scene.physics.moveTo(this,978/2,550/2,80)
+            this.setVelocity(0,0)
         }
 
         // Animations
