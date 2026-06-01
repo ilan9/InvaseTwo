@@ -54,24 +54,24 @@ export default class MyGame extends Phaser.Scene {
         });
         this.anims.create({
             key: 'down',
-            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 2 }),
+            frames: this.anims.generateFrameNumbers('dude', { frames: [0, 1, 0, 2] }),
             frameRate: 10,
         });
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 5 }),
+            frames: this.anims.generateFrameNumbers('dude', { frames: [3, 4, 3, 5] }),
             frameRate: 10
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 8 }),
+            frames: this.anims.generateFrameNumbers('dude', { frames: [6, 7, 6, 8] }),
             frameRate: 10,
         });
         this.anims.create({
             key: 'up',
-            frames: this.anims.generateFrameNumbers('dude', { start: 9, end: 11 }),
+            frames: this.anims.generateFrameNumbers('dude', { frames: [9, 10, 9, 11] }),
             frameRate: 10,
         });
 
