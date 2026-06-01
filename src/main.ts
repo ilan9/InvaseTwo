@@ -15,6 +15,7 @@ export default class MyGame extends Phaser.Scene {
     private groupeBarrel!: Phaser.Physics.Arcade.StaticGroup;
     private groupeWall!: Phaser.Physics.Arcade.StaticGroup;
     private groupeMine!: Phaser.Physics.Arcade.StaticGroup;
+    private groupeGrenade!: Phaser.Physics.Arcade.Group;
     private groupeJoueur!:Phaser.Physics.Arcade.Group;
     private groupeMonstre!:Phaser.Physics.Arcade.Group;
     private gestionnaireVagues!: GestionnaireVagues;
@@ -35,6 +36,7 @@ export default class MyGame extends Phaser.Scene {
         this.load.json('data_arme', 'assets/json/arme.json');
         this.load.image('balle_pistol', 'assets/img/balle_pistol.png');
         this.load.image('barrel', 'assets/img/barrel.png');
+        this.load.image('grenade', 'assets/img/bombe.png');
         this.load.image('wall', 'assets/img/wall.png');
         this.load.image('mine', 'assets/img/mine.png');
         this.load.spritesheet('explosion', 'assets/img/explosion3.png', { frameWidth: 384/8, frameHeight: 48 });
@@ -98,6 +100,7 @@ export default class MyGame extends Phaser.Scene {
         this.groupeBarrel = this.physics.add.staticGroup();
         this.groupeWall = this.physics.add.staticGroup();
         this.groupeMine = this.physics.add.staticGroup();
+        this.groupeGrenade = this.physics.add.group();
 
         this.groupeJoueur = this.physics.add.group();
         this.player = new Player(this,this.groupeBalles,"joueur1",150,200,"dude",1);
@@ -195,6 +198,18 @@ export default class MyGame extends Phaser.Scene {
                 wall.destroy()
             }
             ballObj.destroy()
+        })
+        // Grenade
+
+        this.events.on('create_grenade', (grenade: Phaser.Physics.Arcade.Sprite) => {
+            this.groupeGrenade.add(grenade)
+
+            this.physics.add.collider(this.bords,this.groupeGrenade)
+            this.physics.add.collider(this.groupeBarrel,this.groupeGrenade)
+            this.physics.add.collider(this.groupeWall,this.groupeGrenade)
+        })
+        this.events.on('create_grenade', (grenade: Phaser.Physics.Arcade.Sprite) => {
+            this.explosion(grenade)
         })
 
          // Mine

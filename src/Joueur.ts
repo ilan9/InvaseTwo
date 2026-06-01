@@ -4,6 +4,7 @@ import Shotgun from './arme/Shotgun';
 import Barrel from './arme/Barrel';
 import Wall from './arme/Wall';
 import Mine from './arme/Mine';
+import Grenade from './arme/Grenade';
 
 import type { DonneesArme } from './annexes/interface_type';
 import ConsoleJoueur from './console';
@@ -190,6 +191,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }else if (nom == "Wall"){
             console.log("c'est un wall");
            this.armes.push(new Wall(this.scene,this.groupeBalles,portee,1,cadence)) 
+        }else if (nom == "Grenade"){
+            console.log("c'est une grenade");
+           this.armes.push(new Grenade(this.scene,this.groupeBalles,portee,1,cadence)) 
         }
         else{
         this.armes.push(new Arme(this.scene,this.groupeBalles,nom,portee,1,cadence))
