@@ -29,7 +29,7 @@ export default class Grenade extends Arme {
 
             
 
-            this.scene.time.delayedCall(2500, () => {
+            this.scene.time.delayedCall(2000, () => {
                 if (Grenade.active) {
                     corpsGrenade.setAngularVelocity(0); 
                     this.scene.events.emit("boum_grenade", Grenade);
