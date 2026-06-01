@@ -46,6 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // --- CONFIGURATION DU JOUEUR ---
         this.setCollideWorldBounds(true);
         this.setDepth(10)
+        this.setScale(4)
 
         // Console
         if (num==1){
@@ -95,11 +96,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play("left",true)
             } else if (this.keyD.isDown) {
                 move_x = 1
+                this.anims.play("right",true)
             }
             if (this.keyZ.isDown) {
                 move_y = -1
+                this.anims.play("up",true)
             } else if (this.keyS.isDown) {
                 move_y = 1
+                this.anims.play("down",true)
             }
             this.setVelocityX(move_x*160);
             this.setVelocityY(move_y*160);
