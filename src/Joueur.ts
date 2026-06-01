@@ -93,17 +93,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             // Déplacements
             if (this.keyQ.isDown) {
                 move_x = -1
-                this.anims.play("left",true)
+                this.anims.play("dude_left",true)
             } else if (this.keyD.isDown) {
                 move_x = 1
-                this.anims.play("right",true)
+                this.anims.play("dude_right",true)
             }
             if (this.keyZ.isDown) {
                 move_y = -1
-                this.anims.play("up",true)
+                this.anims.play("dude_up",true)
             } else if (this.keyS.isDown) {
                 move_y = 1
-                this.anims.play("down",true)
+                this.anims.play("dude_down",true)
             }
             this.setVelocityX(move_x*160);
             this.setVelocityY(move_y*160);

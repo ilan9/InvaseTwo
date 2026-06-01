@@ -52,28 +52,33 @@ export default class MyGame extends Phaser.Scene {
             repeat: 0, // 0 = L'animation ne se joue qu'une seule fois
             hideOnComplete: true // MAGIQUE : Le sprite devient invisible tout seul à la fin !
         });
-        this.anims.create({
-            key: 'down',
-            frames: this.anims.generateFrameNumbers('dude', { frames: [1, 0, 1, 2] }),
-            frameRate: 8,
-        });
+        const skins = ['dude', 'zombie']; // Assure-toi que la clé du monstre est bien 'monstre' dans ton preload
 
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('dude', { frames: [4, 3, 4, 5] }),
-            frameRate: 8
-        });
+        for (const skin of skins) {
+            this.anims.create({
+                key: `${skin}_down`, // Va créer 'dude_down' puis 'monstre_down'
+                frames: this.anims.generateFrameNumbers(skin, { frames: [1, 0, 1, 2] }),
+                frameRate: 8,
+            });
 
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', { frames: [7, 6, 7, 8] }),
-            frameRate: 8,
-        });
-        this.anims.create({
-            key: 'up',
-            frames: this.anims.generateFrameNumbers('dude', { frames: [10, 9, 10, 11] }),
-            frameRate: 8,
-        });
+            this.anims.create({
+                key: `${skin}_left`,
+                frames: this.anims.generateFrameNumbers(skin, { frames: [4, 3, 4, 5] }),
+                frameRate: 8
+            });
+
+            this.anims.create({
+                key: `${skin}_right`,
+                frames: this.anims.generateFrameNumbers(skin, { frames: [7, 6, 7, 8] }),
+                frameRate: 8,
+            });
+
+            this.anims.create({
+                key: `${skin}_up`,
+                frames: this.anims.generateFrameNumbers(skin, { frames: [10, 9, 10, 11] }),
+                frameRate: 8,
+            });
+        }
 
         // Les Monstres
         this.groupeMonstre = this.physics.add.group();

@@ -51,6 +51,33 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         }else{
             this.scene.physics.moveTo(this,978/2,550/2,80)
         }
+
+        // Animations
+        const corps = this.body as Phaser.Physics.Arcade.Body;
+        
+        let VitesseX = corps.velocity.x;
+        let VitesseY = corps.velocity.y;
+
+        if (Math.abs(VitesseX) > Math.abs(VitesseY)) {
+            // Déplacement horizontal dominant
+            if (VitesseX > 0) {
+                // Il va vers la DROITE
+                this.play('zombie_right', true); 
+            } else if (VitesseX < 0) {
+                // Il va vers la GAUCHE
+                this.play('zombie_left', true);
+            }
+        } else {
+            // Déplacement vertical dominant
+            if (VitesseY > 0) {
+                // Il va vers le BAS
+                this.play('zombie_down', true);
+            } else if (VitesseY < 0) {
+                // Il va vers le HAUT
+                this.play('zombie_up', true);
+            }
+        }
+    
         
     }
     attaquer(joueur: Player):void{
