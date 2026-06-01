@@ -195,7 +195,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }else if (nom == "Grenade"){
             console.log("c'est une grenade");
            this.armes.push(new Grenade(this.scene,this.groupeBalles,portee,1,cadence)) 
-        }else if (nom == "Lance_Roquette"){
+        }else if (nom == "Lance_roquette"){
             console.log("c'est un lance roquette");
            this.armes.push(new Lance_roquette(this.scene,this.groupeBalles,portee,1,cadence)) 
         }
