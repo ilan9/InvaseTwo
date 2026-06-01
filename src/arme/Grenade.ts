@@ -25,11 +25,11 @@ export default class Grenade extends Arme {
             
             // Rebond
             corpsGrenade.setBounce(0.5); 
-            corpsGrenade.setAngularVelocity(300);
+            corpsGrenade.setAngularVelocity(150);
 
             
 
-            this.scene.time.delayedCall(4000, () => {
+            this.scene.time.delayedCall(2500, () => {
                 if (Grenade.active) {
                     corpsGrenade.setAngularVelocity(0); 
                     this.scene.events.emit("boum_grenade", Grenade);
