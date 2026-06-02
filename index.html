@@ -35,6 +35,16 @@
     // Quand on clique sur JOUER, on cache le pop-up tout simplement !
     bouton.addEventListener('click', () => {
         popup.style.display = 'none';
+        // --- CODE POUR LE PLEIN ÉCRAN ---
+        // Vérifie si l'API Fullscreen est disponible et demande le plein écran pour l'élément 'app'
+        if (appElement.requestFullscreen) {
+            appElement.requestFullscreen();
+        } else if (appElement.webkitRequestFullscreen) { // Pour Safari
+            appElement.webkitRequestFullscreen();
+        } else if (appElement.msRequestFullscreen) { // Pour IE11
+            appElement.msRequestFullscreen();
+        }
+        
         window.dispatchEvent(new Event('demarrer-jeu'));
     });
 </script>
