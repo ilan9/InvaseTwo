@@ -1,10 +1,10 @@
 import Phaser from 'phaser';
 import Player from './Joueur';
+import Monstre from './Monstre';
 
-export default class Monstre extends Phaser.Physics.Arcade.Sprite {
+export default class Diable extends Monstre {
     public point_degat:number;
-    public vie_monstre:number;
-    private skin:string
+    public vie_Diable:number;
 
 
     constructor(scene: Phaser.Scene,porte:number,skin:string,level:number) {
@@ -23,17 +23,16 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         }
         let offset_x = Phaser.Math.Between(-30, 30);
         let offset_y = Phaser.Math.Between(-30, 30);
-        super(scene, x+offset_x, y+offset_y,skin);
+        super(scene, x+offset_x, y+offset_y, skin);
         scene.add.existing(this);         // Pour l'afficher à l'écran
         scene.physics.add.existing(this); 
         this.setScale(0.5)
         this.setBounce(1)
         this.setMass(10)
-        this.skin = skin
         
 
         this.point_degat = 10*level
-        this.vie_monstre = 10*level
+        this.vie_Diable = 10*level
     }
     update(joueur1:Player, joueur2:Player):void {
 
@@ -66,19 +65,19 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
             // Déplacement horizontal dominant
             if (VitesseX > 0) {
                 // Il va vers la DROITE
-                this.play(`${this.skin}_right`, true); 
+                this.play('zombie_right', true); 
             } else if (VitesseX < 0) {
                 // Il va vers la GAUCHE
-                this.play(`${this.skin}_left`, true);
+                this.play('zombie_left', true);
             }
         } else {
             // Déplacement vertical dominant
             if (VitesseY > 0) {
                 // Il va vers le BAS
-                this.play(`${this.skin}_down`, true);
+                this.play('zombie_down', true);
             } else if (VitesseY < 0) {
                 // Il va vers le HAUT
-                this.play(`${this.skin}_up`, true);
+                this.play('zombie_up', true);
             }
         }
     
@@ -88,13 +87,13 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         joueur.degat(-1 * this.point_degat);
     }
     degat(degat:number): void {
-        this.vie_monstre -= degat
-        console.log(`il a pris ${degat} degat, il lui reste ${this.vie_monstre}PV.`)
+        this.vie_Diable -= degat
+        console.log(`il a pris ${degat} degat, il lui reste ${this.vie_Diable}PV.`)
         this.setTint(0xff0000);
         this.scene.time.delayedCall(1000, () => {
             this.clearTint();
         });
-        if (this.vie_monstre <= 0){
+        if (this.vie_Diable <= 0){
             this.destroy() // Pas utiliser destroy
         }
     }
