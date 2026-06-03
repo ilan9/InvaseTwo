@@ -106,10 +106,10 @@ export default class MyGame extends Phaser.Scene {
         this.gestionnaireVagues = new GestionnaireVagues(this, this.groupeMonstre);
         
         // On met le jeu en attente du bouton HTML
-        window.addEventListener('demarrer-jeu', () => {
+   
             // Le joueur a cliqué sur "JOUER", on lance le massacre !
-            this.gestionnaireVagues.lancerNouvelleVague();
-        }, { once: true }); 
+        this.gestionnaireVagues.lancerNouvelleVague();
+
         // Le "{ once: true }" est une sécurité magique : Phaser n'écoutera ce message qu'une seule fois, 
         // ce qui empêche de lancer la vague 1 plusieurs fois si le joueur clique comme un fou.
 

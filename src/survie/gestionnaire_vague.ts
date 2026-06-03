@@ -71,7 +71,7 @@ export default class GestionnaireVagues {
                 // 2. On dit au navigateur de recharger la page si on clique dessus
                 boutonRejouer.onclick = () => {
                     window.location.reload(); 
-                };}
+                }}
             return;
         }
         //Cree les monstres
