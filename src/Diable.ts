@@ -4,10 +4,12 @@ import Monstre from './Monstre';
 
 export default class Diable extends Monstre {
     private time_tire: number = 0; 
+    private level: number
 
     constructor(scene: Phaser.Scene, porte: number, skin: string, level: number) {
         super(scene, porte, skin, level);
         this.point_degat = 15 
+        this.level = level
     }
 
 
@@ -29,8 +31,9 @@ export default class Diable extends Monstre {
         if (cible.vie > 0 && Phaser.Math.Distance.Between(this.x, this.y, cible.x, cible.y) <= 300) {
             
             // Cadence de tir (ex: 1 tir toutes les 1.5 secondes / 1500ms)
-            if (this.scene.time.now - this.time_tire >= 1500) {
-                this.tirer_boule_feu(cible);
+            if (this.scene.time.now - this.time_tire >= 4000) {
+                for (let i = 0; i < this.level;i++){
+                this.tirer_boule_feu(cible);}
                 this.time_tire = this.scene.time.now; // On réinitialise le chrono
             }
         }
