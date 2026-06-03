@@ -32,7 +32,7 @@ export default class Monstre extends Phaser.Physics.Arcade.Sprite {
         this.skin = skin
         
 
-        this.point_degat = 10*level
+        this.point_degat = 10
         this.vie_monstre = 10*level
     }
     update(joueur1:Player, joueur2:Player):void {
