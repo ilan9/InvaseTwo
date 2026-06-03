@@ -62,6 +62,16 @@ export default class GestionnaireVagues {
         if (!infosVague) {
             this.aff_vague.setText("Félicitation !")
             console.log("Félicitations, vous avez fini le jeu !");
+            const boutonRejouer = document.getElementById('btn-rejouer');
+            
+            if (boutonRejouer) {
+                // 1. On affiche le bouton (on enlève le display: none)
+                boutonRejouer.style.display = 'block';
+                
+                // 2. On dit au navigateur de recharger la page si on clique dessus
+                boutonRejouer.onclick = () => {
+                    window.location.reload(); 
+                };}
             return;
         }
         //Cree les monstres
