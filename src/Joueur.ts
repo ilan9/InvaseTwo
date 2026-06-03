@@ -19,6 +19,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private keyS!: Phaser.Input.Keyboard.Key;
     private keySPACE!: Phaser.Input.Keyboard.Key;
     private keyC!: Phaser.Input.Keyboard.Key;
+    private skin!: string
 
     public armes: Arme[];
     public arme_equiped: Arme;
@@ -35,7 +36,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     private groupeBalles!: Phaser.Physics.Arcade.Group;
 
     constructor(scene: Phaser.Scene,Groupe_balle:Phaser.Physics.Arcade.Group,name:string, x: number, y: number, skin:string, num:number) {
-        // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image ('dude')
+        // "super" appelle le constructeur du Sprite avec la scène, les coordonnées et la clé de l'image (`${this.skin}')
         super(scene, x, y, skin);
 
         // --- MAGIE REQUISE ---
@@ -45,6 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this); // Pour lui donner un corps physique
         this.groupeBalles = Groupe_balle;
 
+        this.skin = skin
         // --- CONFIGURATION DU JOUEUR ---
         this.setCollideWorldBounds(true);
         this.setDepth(10)
@@ -95,17 +97,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             // Déplacements
             if (this.keyQ.isDown) {
                 move_x = -1
-                this.anims.play("dude_left",true)
+                this.anims.play(`${this.skin}_left`,true)
             } else if (this.keyD.isDown) {
                 move_x = 1
-                this.anims.play("dude_right",true)
+                this.anims.play(`${this.skin}_right`,true)
             }
             if (this.keyZ.isDown) {
                 move_y = -1
-                this.anims.play("dude_up",true)
+                this.anims.play(`${this.skin}_up`,true)
             } else if (this.keyS.isDown) {
                 move_y = 1
-                this.anims.play("dude_down",true)
+                this.anims.play(`${this.skin}_down`,true)
             }
             this.setVelocityX(move_x*160);
             this.setVelocityY(move_y*160);
