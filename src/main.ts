@@ -214,8 +214,9 @@ export default class MyGame extends Phaser.Scene {
         this.physics.add.overlap(this.groupeBoule, this.groupeBarrel,(balleObj,barrelObj)=>{
             let barrel = barrelObj as Phaser.Physics.Arcade.Sprite
             let balle = balleObj as Phaser.Physics.Arcade.Sprite
+            balle.destroy()
             this.explosion(barrel)
-            balle.destroy()});
+            });
 
 
         // Monstre
