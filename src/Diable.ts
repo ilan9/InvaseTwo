@@ -49,14 +49,12 @@ export default class Diable extends Monstre {
         // 4. On lui donne une vitesse constante en ligne droite
         const vitesse = 250;
         const corpsBoule = boule.body as Phaser.Physics.Arcade.Body;
-        
-        // Cette fonction transforme l'angle en une force X et Y définitive !
-        this.scene.physics.velocityFromRotation(angle, vitesse, corpsBoule.velocity);
-        corpsBoule.setAngularVelocity(100)
-
         // 5. On envoie les infos à MyGame.ts pour gérer les dégâts
 
         this.scene.events.emit("create_boule_feu", boule);
+        // Cette fonction transforme l'angle en une force X et Y définitive !
+        this.scene.physics.velocityFromRotation(angle, vitesse, corpsBoule.velocity);
+        corpsBoule.setAngularVelocity(100)
 
         // 6. On détruit la boule au bout de quelques secondes si elle ne touche rien
         this.scene.time.delayedCall(3000, () => {
