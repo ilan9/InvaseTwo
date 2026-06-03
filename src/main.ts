@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import MenuScene from './menu';
 import Player from './Joueur';
 import Monstre from './Monstre';
 import GestionnaireVagues from './survie/gestionnaire_vague';
@@ -22,14 +23,25 @@ export default class MyGame extends Phaser.Scene {
     private groupeMonstre!:Phaser.Physics.Arcade.Group;
     private gestionnaireVagues!: GestionnaireVagues;
 
+    private skinJ1: string = 'dude'; 
+    private skinJ2: string = 'dude';
+
     constructor() {
         super('game-scene'); // Un nom unique pour identifier ta scène
     }
 
+    init(data: { skinJoueur1: string, skinJoueur2: string }) {
+        // On ouvre le colis reçu par le MenuScene !
+        if (data.skinJoueur1) {
+            this.skinJ1 = data.skinJoueur1;
+            this.skinJ2 = data.skinJoueur2;
+        }
+    }
+
     preload() {
         this.load.image('sol', 'assets/img/sol2.png');
-        this.load.spritesheet('dude', 'assets/img/characters/character_1_frame16x20.png', { frameWidth: 16, frameHeight: 20});
-        this.load.spritesheet('dude2', 'assets/img/dude.png', { frameWidth: 32, frameHeight: 48 }); 
+        this.load.spritesheet('dude', `assets/img/characters/character_${this.skinJ1}_frame16x20.png`, { frameWidth: 16, frameHeight: 20});
+        this.load.spritesheet('dude2', `assets/img/characters/character_${this.skinJ2}_frame16x20.png`, { frameWidth: 16, frameHeight: 20});
         this.load.spritesheet('zombie2', 'assets/img/zombie1.png',  { frameWidth: 32*4, frameHeight: 32*8,margin:1 });
         this.load.spritesheet('zombie', 'assets/img/zombie.png',  { frameWidth: 208/3, frameHeight: 400/4 });
         this.load.spritesheet('diable', 'assets/img/diable.png',  { frameWidth: 208/3, frameHeight: 400/4 });
@@ -112,7 +124,7 @@ export default class MyGame extends Phaser.Scene {
 
         this.groupeJoueur = this.physics.add.group();
         this.player = new Player(this,this.groupeBalles,"joueur1",150,200,"dude",1);
-        this.player2 = new Player(this,this.groupeBalles,"joueur2",500,200,"dude",2);
+        this.player2 = new Player(this,this.groupeBalles,"joueur2",500,200,"dude2",2);
         this.groupeJoueur.add(this.player);
         this.groupeJoueur.add(this.player2);
 
@@ -375,7 +387,8 @@ const config: Phaser.Types.Core.GameConfig = {
     pixelArt: true,      // On garde le côté net
     roundPixels: true,
     parent: 'app',
-    scene: MyGame, // On passe la classe ici
+    // Phaser va TOUJOURS lancer la TOUTE PREMIÈRE scène de ce tableau au démarrage.
+    scene: [ MenuScene, MyGame ],
     physics: {
         default: 'arcade',
         arcade: {
