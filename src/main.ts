@@ -33,8 +33,8 @@ export default class MyGame extends Phaser.Scene {
         this.load.spritesheet('zombie2', 'assets/img/zombie1.png',  { frameWidth: 32*4, frameHeight: 32*8,margin:1 });
         this.load.spritesheet('zombie', 'assets/img/zombie.png',  { frameWidth: 208/3, frameHeight: 400/4 });
         this.load.spritesheet('diable', 'assets/img/diable.png',  { frameWidth: 208/3, frameHeight: 400/4 });
-        this.load.image('bord_hori', 'assets/img/bord_horizontal.png');
-        this.load.image('bord_vert', 'assets/img/bord_vertical.png');
+        this.load.image('bord_hori', 'assets/img/bord_h.png');
+        this.load.image('bord_vert', 'assets/img/bord_v.png');
         this.load.image('bord', 'assets/img/bord.png');
         this.load.json('donnees_vagues', 'assets/json/vague.json');
         this.load.json('data_arme', 'assets/json/arme.json');
@@ -135,15 +135,15 @@ export default class MyGame extends Phaser.Scene {
 
         // Mur exterieur
         this.bords = this.physics.add.staticGroup();
-        // this.bords.create(0, 0, 'bord_hori').setOrigin(0,0).refreshBody();
+        this.bords.create(0, 0, 'bord_hori').setOrigin(0,0).refreshBody();
         // this.bords.create(978/2+32, 0, 'bord_hori').setOrigin(0,0).refreshBody();
-        // this.bords.create(0, 550-32, 'bord_hori').setOrigin(0,0).refreshBody();
+        this.bords.create(0, 550-32, 'bord_hori').setOrigin(0,0).refreshBody();
         // this.bords.create(978/2+32, 550-32, 'bord_hori').setOrigin(0,0).refreshBody();
-        // this.bords.create(0, 0, 'bord_vert').setOrigin(0,0).refreshBody();
+        this.bords.create(0, 0, 'bord_vert').setOrigin(0,0).refreshBody();
         // this.bords.create(0, 550/2+32, 'bord_vert').setOrigin(0,0).refreshBody();
-        // this.bords.create(978-32, 0, 'bord_vert').setOrigin(0,0).refreshBody();
+        this.bords.create(978-32, 0, 'bord_vert').setOrigin(0,0).refreshBody();
         // this.bords.create(978-32, 550/2+32, 'bord_vert').setOrigin(0,0).refreshBody();
-        this.bords.create(978/2,550/2,"bord")
+
     
         // Colision
         // Mur
