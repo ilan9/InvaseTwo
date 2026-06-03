@@ -17,7 +17,7 @@ export default class MenuScene extends Phaser.Scene {
     private btnsJ2: Phaser.GameObjects.Text[] = [];
 
     constructor() {
-        super('menu-scene');
+        super('menu-scene'); 
     }
 
     create() {
