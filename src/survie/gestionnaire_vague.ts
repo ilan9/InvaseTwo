@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Monstre from '../Monstre';
+import Diable from '../Diable';
 
 export default class GestionnaireVagues {
     private scene: Phaser.Scene;
@@ -67,9 +68,15 @@ export default class GestionnaireVagues {
         this.scene.time.delayedCall(10000,()=>{ // fait apparaitre les monstre 7 sec apres le debut de la vague
             infosVague.ennemis.forEach((configEnnemi: any) => {
                 for (let i = 0; i < configEnnemi.nombre; i++) {
-                    const nouveauMonstre = new Monstre(this.scene, configEnnemi.porte, configEnnemi.type, configEnnemi.level);
-                    this.vagueEnCours = true;
+                    if (configEnnemi.type == "diable"){
+                        let nouveauMonstre = new Diable(this.scene, configEnnemi.porte, configEnnemi.type, configEnnemi.level);
+                        this.groupeEnnemis.add(nouveauMonstre);
+                    }else{
+                    let nouveauMonstre = new Monstre(this.scene, configEnnemi.porte, configEnnemi.type, configEnnemi.level);
                     this.groupeEnnemis.add(nouveauMonstre);
+                    }
+                    this.vagueEnCours = true;
+                    
                 }
             })
         })
