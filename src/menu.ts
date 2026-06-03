@@ -1,130 +1,119 @@
 import Phaser from 'phaser';
 
 export default class MenuScene extends Phaser.Scene {
-    // Les variables pour stocker les choix (par défaut, ils sont tous les deux 'dude')
-    private skinJ1: string = 'dude';
-    private skinJ2: string = 'dude';
+    // Les variables stockent maintenant un NOMBRE (1 par défaut)
+    private skinJ1: number = 1;
+    private skinJ2: number = 2; // On lui met 2 par défaut pour qu'ils soient différents
 
-    // La liste de tes skins disponibles
-    private skinsDispo: string[] = ['dude', 'zombie', 'diable'];
-
-    // Les "boîtes" qui vont contenir nos différents menus
     private ecranSelection!: Phaser.GameObjects.Container;
     private ecranControles!: Phaser.GameObjects.Container;
 
-    // Tableaux pour garder en mémoire les boutons et changer leurs couleurs
     private btnsJ1: Phaser.GameObjects.Text[] = [];
     private btnsJ2: Phaser.GameObjects.Text[] = [];
 
     constructor() {
-        super('menu-scene'); 
+        super('menu-scene');
     }
 
     create() {
-        // Le Titre du jeu (il reste affiché tout le temps, donc on ne le met pas dans une boîte)
-        this.add.text(978 / 2, 80, 'InvaseTwo', {
+        this.add.text(978 / 2, 60, 'InvaseTwo', {
             fontSize: '60px',
-            fontFamily: 'Arial', // Tu pourras mettre ta police Nosifer plus tard !
+            fontFamily: 'Arial', 
             color: '#ff0000',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        // 1. Création des deux écrans
         this.ecranSelection = this.add.container(0, 0);
         this.ecranControles = this.add.container(0, 0);
-
-        // Par défaut, on cache l'écran des contrôles
         this.ecranControles.setVisible(false);
 
-        // 2. On remplit ces écrans
         this.creerMenuSelection();
         this.creerMenuControles();
     }
 
-    // ==========================================
-    // ÉCRAN 1 : LA SÉLECTION DES SKINS
-    // ==========================================
     private creerMenuSelection() {
         // Titres Joueur 1 et Joueur 2
-        this.ecranSelection.add(this.add.text(250, 180, 'JOUEUR 1', { fontSize: '30px', color: '#00aaff' }).setOrigin(0.5));
-        this.ecranSelection.add(this.add.text(978 - 250, 180, 'JOUEUR 2', { fontSize: '30px', color: '#ffaa00' }).setOrigin(0.5));
+        this.ecranSelection.add(this.add.text(250, 150, 'JOUEUR 1', { fontSize: '30px', color: '#00aaff' }).setOrigin(0.5));
+        this.ecranSelection.add(this.add.text(978 - 250, 150, 'JOUEUR 2', { fontSize: '30px', color: '#ffaa00' }).setOrigin(0.5));
 
-        // Création des boutons de skins pour J1
-        let yPos = 250;
-        this.skinsDispo.forEach((skin) => {
-            let btn = this.add.text(250, yPos, skin.toUpperCase(), { fontSize: '25px', color: '#ffffff' })
+        // --- MAGIE DE LA GRILLE ---
+        // On fait une boucle qui compte de 1 à 32
+        for (let i = 1; i <= 32; i++) {
+            
+            // Calcul mathématique pour faire 8 colonnes et 4 lignes
+            let col = (i - 1) % 8;             // Donne un chiffre de 0 à 7
+            let row = Math.floor((i - 1) / 8); // Donne la ligne (0, 1, 2 ou 3)
+
+            // --- GRILLE JOUEUR 1 ---
+            // On calcule la position X et Y en fonction de la colonne et de la ligne
+            let xJ1 = 110 + col * 40; 
+            let yJ1 = 200 + row * 40;
+            
+            let btnJ1 = this.add.text(xJ1, yJ1, i.toString(), { fontSize: '20px', color: '#ffffff' })
                 .setOrigin(0.5)
                 .setInteractive()
                 .on('pointerdown', () => {
-                    this.skinJ1 = skin;      // On sauvegarde le choix
-                    this.majCouleursSkins(); // On met à jour les couleurs
-                });
-            this.btnsJ1.push(btn);
-            this.ecranSelection.add(btn);
-            yPos += 50;
-        });
-
-        // Création des boutons de skins pour J2
-        yPos = 250;
-        this.skinsDispo.forEach((skin) => {
-            let btn = this.add.text(978 - 250, yPos, skin.toUpperCase(), { fontSize: '25px', color: '#ffffff' })
-                .setOrigin(0.5)
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.skinJ2 = skin;
+                    this.skinJ1 = i; // On sauvegarde le NUMÉRO du skin !
                     this.majCouleursSkins();
                 });
-            this.btnsJ2.push(btn);
-            this.ecranSelection.add(btn);
-            yPos += 50;
-        });
+            this.btnsJ1.push(btnJ1);
+            this.ecranSelection.add(btnJ1);
 
-        // Appliquer les couleurs initiales (pour mettre en jaune 'dude' par défaut)
+            // --- GRILLE JOUEUR 2 ---
+            let xJ2 = 590 + col * 40; 
+            let yJ2 = 200 + row * 40;
+
+            let btnJ2 = this.add.text(xJ2, yJ2, i.toString(), { fontSize: '20px', color: '#ffffff' })
+                .setOrigin(0.5)
+                .setInteractive()
+                .on('pointerdown', () => {
+                    this.skinJ2 = i;
+                    this.majCouleursSkins();
+                });
+            this.btnsJ2.push(btnJ2);
+            this.ecranSelection.add(btnJ2);
+        }
+
+        // On applique les couleurs pour afficher le choix de base
         this.majCouleursSkins();
 
-        // Le bouton VALIDER (pour passer à l'écran suivant)
+        // Le bouton VALIDER
         const btnValider = this.add.text(978 / 2, 450, '[ VALIDER LES SKINS ]', { fontSize: '35px', color: '#00ff00' })
             .setOrigin(0.5)
             .setInteractive()
             .on('pointerover', () => btnValider.setColor('#ffffff'))
             .on('pointerout', () => btnValider.setColor('#00ff00'))
             .on('pointerdown', () => {
-                // MAGIE : On cache la sélection, on affiche les contrôles !
                 this.ecranSelection.setVisible(false);
                 this.ecranControles.setVisible(true);
             });
         this.ecranSelection.add(btnValider);
     }
 
-    // Petite fonction pratique pour mettre en jaune le skin sélectionné et en blanc les autres
     private majCouleursSkins() {
+        // Dans notre tableau btnsJ1, la case 0 correspond au skin 1, la case 1 au skin 2, etc.
         this.btnsJ1.forEach((btn, index) => {
-            if (this.skinsDispo[index] === this.skinJ1) btn.setColor('#ffff00'); // Jaune si sélectionné
-            else btn.setColor('#ffffff'); // Blanc sinon
+            let numeroDuSkin = index + 1;
+            if (numeroDuSkin === this.skinJ1) btn.setColor('#ffff00'); 
+            else btn.setColor('#ffffff'); 
         });
 
         this.btnsJ2.forEach((btn, index) => {
-            if (this.skinsDispo[index] === this.skinJ2) btn.setColor('#ffff00');
+            let numeroDuSkin = index + 1;
+            if (numeroDuSkin === this.skinJ2) btn.setColor('#ffff00');
             else btn.setColor('#ffffff');
         });
     }
 
-    // ==========================================
-    // ÉCRAN 2 : LES CONTRÔLES ET LE BOUTON JOUER
-    // ==========================================
     private creerMenuControles() {
-        // Titre de l'écran
         this.ecranControles.add(this.add.text(978 / 2, 180, 'CONTRÔLES', { fontSize: '40px', color: '#ffffff' }).setOrigin(0.5));
 
-        // Texte des contrôles J1
         const texteJ1 = "JOUEUR 1 (Bleu)\n\nDéplacement : Z Q S D\nTirer : ESPACE\nChanger d'arme : C";
         this.ecranControles.add(this.add.text(250, 300, texteJ1, { fontSize: '20px', color: '#00aaff', align: 'center' }).setOrigin(0.5));
 
-        // Texte des contrôles J2
         const texteJ2 = "JOUEUR 2 (Orange)\n\nDéplacement : FLÈCHES\nTirer : ENTRÉE\nChanger d'arme : L";
         this.ecranControles.add(this.add.text(978 - 250, 300, texteJ2, { fontSize: '20px', color: '#ffaa00', align: 'center' }).setOrigin(0.5));
 
-        // Le bouton final JOUER
         const btnJouer = this.add.text(978 / 2, 450, '[ LANCER LA PARTIE ]', { fontSize: '40px', color: '#ff0000', fontStyle: 'bold' })
             .setOrigin(0.5)
             .setInteractive()
@@ -136,13 +125,10 @@ export default class MenuScene extends Phaser.Scene {
         this.ecranControles.add(btnJouer);
     }
 
-    // ==========================================
-    // LANCEMENT DU JEU
-    // ==========================================
     private lancerJeu() {
-        console.log(`Lancement ! J1: ${this.skinJ1} | J2: ${this.skinJ2}`);
+        console.log(`Lancement ! J1: skin n°${this.skinJ1} | J2: skin n°${this.skinJ2}`);
         
-        // On envoie le "colis" à MyGame avec les deux skins choisis
+        // On envoie les NOMBRES dans le colis !
         this.scene.start('game-scene', { 
             skinJoueur1: this.skinJ1, 
             skinJoueur2: this.skinJ2 
