@@ -25,7 +25,8 @@
       "numero": 4,
       "ennemis": [
         { "type": "zombie", "nombre": 10, "level": 2,"porte":1 },
-        { "type": "zombie", "nombre": 7, "level": 5,"porte":2 }
+        { "type": "zombie", "nombre": 7, "level": 5,"porte":2 },
+        { "type": "diable", "nombre": 1, "level": 1,"porte":2 }
       ]
     },
     {
