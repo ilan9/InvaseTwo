@@ -72,7 +72,7 @@ export default class MyGame extends Phaser.Scene {
             repeat: 0, // 0 = L'animation ne se joue qu'une seule fois
             hideOnComplete: true // MAGIQUE : Le sprite devient invisible tout seul à la fin !
         });
-        const skins = ['dude', 'zombie','diable']; // Assure-toi que la clé du monstre est bien 'monstre' dans ton preload
+        const skins = ['dude','dude2', 'zombie','diable']; // Assure-toi que la clé du monstre est bien 'monstre' dans ton preload
 
         for (const skin of skins) {
             this.anims.create({
