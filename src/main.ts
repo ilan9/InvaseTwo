@@ -134,7 +134,7 @@ export default class MyGame extends Phaser.Scene {
             });
 
         // Mur exterieur
-        // this.bords = this.physics.add.staticGroup();
+        this.bords = this.physics.add.staticGroup();
         // this.bords.create(0, 0, 'bord_hori').setOrigin(0,0).refreshBody();
         // this.bords.create(978/2+32, 0, 'bord_hori').setOrigin(0,0).refreshBody();
         // this.bords.create(0, 550-32, 'bord_hori').setOrigin(0,0).refreshBody();
