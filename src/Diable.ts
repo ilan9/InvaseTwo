@@ -3,104 +3,15 @@ import Player from './Joueur';
 import Monstre from './Monstre';
 
 export default class Diable extends Monstre {
-    public point_degat:number;
-    public vie_Diable:number;
+
 
 
     constructor(scene: Phaser.Scene,porte:number,skin:string,level:number) {
-        if (porte == 1){
-            var x = 978/2
-            var y = 0
-        }else if (porte == 3){
-            var x = 978/2
-            var y = 550
-        }else if (porte == 2){
-            var x = 978
-            var y = 550/2
-        }else{
-            var x = 0
-            var y = 550/2
-        }
-        let offset_x = Phaser.Math.Between(-30, 30);
-        let offset_y = Phaser.Math.Between(-30, 30);
-        super(scene, x+offset_x, y+offset_y, skin);
-        scene.add.existing(this);         // Pour l'afficher à l'écran
-        scene.physics.add.existing(this); 
-        this.setScale(0.5)
-        this.setBounce(1)
-        this.setMass(10)
-        
-
-        this.point_degat = 10*level
-        this.vie_Diable = 10*level
+        super(scene, porte, skin, level);
     }
-    update(joueur1:Player, joueur2:Player):void {
-
-        const vitesse = Phaser.Math.Between(50,70)
-        
-        let distanceJ1 = Phaser.Math.Distance.Between(this.x, this.y, joueur1.x, joueur1.y);
-        let distanceJ2 = Phaser.Math.Distance.Between(this.x, this.y, joueur2.x, joueur2.y)
-        if (this.x > 978-32 ||this.x < 32 ||this.y > 550-32 ||this.y < 32 ){
-            this.scene.physics.moveTo(this,978/2,550/2)
-        }
-        else if (joueur1.vie >0 && (distanceJ1 <= distanceJ2 || joueur2.vie <= 0)){
-            if (distanceJ1 > 16){
-                this.scene.physics.moveToObject(this, joueur1, vitesse);
-            }
-        }else if(joueur2.vie >0){
-            if (distanceJ2 > 16){
-                this.scene.physics.moveToObject(this, joueur2, vitesse);
-            }
-        }else{
-            this.setVelocity(0,0)
-        }
-
-        // Animations
-        const corps = this.body as Phaser.Physics.Arcade.Body;
-        
-        let VitesseX = corps.velocity.x;
-        let VitesseY = corps.velocity.y;
-
-        if (Math.abs(VitesseX) > Math.abs(VitesseY)) {
-            // Déplacement horizontal dominant
-            if (VitesseX > 0) {
-                // Il va vers la DROITE
-                this.play('zombie_right', true); 
-            } else if (VitesseX < 0) {
-                // Il va vers la GAUCHE
-                this.play('zombie_left', true);
-            }
-        } else {
-            // Déplacement vertical dominant
-            if (VitesseY > 0) {
-                // Il va vers le BAS
-                this.play('zombie_down', true);
-            } else if (VitesseY < 0) {
-                // Il va vers le HAUT
-                this.play('zombie_up', true);
-            }
-        }
     
-        
-    }
     attaquer(joueur: Player):void{
         joueur.degat(-1 * this.point_degat);
     }
-    degat(degat:number): void {
-        this.vie_Diable -= degat
-        console.log(`il a pris ${degat} degat, il lui reste ${this.vie_Diable}PV.`)
-        this.setTint(0xff0000);
-        this.scene.time.delayedCall(1000, () => {
-            this.clearTint();
-        });
-        if (this.vie_Diable <= 0){
-            this.destroy() // Pas utiliser destroy
-        }
-    }
-
-
-
-
-
-
+   
 }
