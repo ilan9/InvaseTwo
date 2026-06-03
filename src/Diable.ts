@@ -33,11 +33,15 @@ export default class Diable extends Monstre {
             // Cadence de tir (ex: 1 tir toutes les 1.5 secondes / 1500ms)
             if (this.scene.time.now - this.time_tire >= 4000) {
                 for (let i = 0; i < this.level;i++){
-                this.tirer_boule_feu(cible);}
+                this.scene.time.delayedCall(i * 200, () => {
+                // On vérifie qu'il est toujours en vie avant de tirer !
+                if (this.active) { 
+                    this.tirer_boule_feu(cible);
+                }})
                 this.time_tire = this.scene.time.now; // On réinitialise le chrono
             }
         }
-    }
+    }}
 
     private tirer_boule_feu(cible: Player): void {
         // 1. Création du projectile
